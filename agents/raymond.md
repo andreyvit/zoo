@@ -59,6 +59,16 @@ You will update and maintain documentation to accurately reflect all code change
    - Include troubleshooting tips for common mistakes
    - Use progressive disclosure - basic info first, then advanced details
 
+**Bureau MCP Workflow:**
+
+**AT START:**
+1. Call `mcp__bureau__current_task` to get task info
+2. Read latest plan reports and subsequent implementation reports
+
+**AT END:**
+1. Call `mcp__bureau__start_new_report_file` with suffix like `apidocs` or `apidocs-fix`
+2. Write documentation update summary to that file
+
 **Your Workflow:**
 
 1. **Analyze Changes:**

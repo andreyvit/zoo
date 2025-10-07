@@ -3,9 +3,9 @@ $ARGUMENTS
 
 ---
 
-CONTINUE the task, do not create a new one. (If I didn't mention which task, continue the current one!)
+Call `mcp__bureau__current_task` to get current task. If user is asking to continue a specific non-current task, call `mcp__bureau__switch_task`.
 
-Save the user's revision request to a new file under task dir!
+Save the user's revision request using mcp__bureau__start_new_report_file with suffix like `user-revision`, `user-feedback`, `user-bug-report`, `user-mad`, etc.
 
 FOLLOW THE WORKFLOW in CLAUDE.md. Create tasks for each step. Take no shortcuts.
 
