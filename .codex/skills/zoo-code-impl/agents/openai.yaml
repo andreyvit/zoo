@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Code Impl"
+  short_description: "Implement approved Zoo subtasks"
+  default_prompt: "Use $zoo-code-impl to implement an approved Zoo active-subtask plan."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,54 @@
+## Required Context and Commands
+
+- Read `_readme/tests-and-helpers.md` before writing or restructuring tests.
+- Use `make quicktest` during development; it runs `go test -vet=off -short ./...`.
+- Never pass `-timeout` to `go test`.
+- Do not use `-count=1` unless running one specific test.
+- Before commit: `make fmt`, full `go test ./path/to/modified/package/...` without `-short`/`-vet=off`, then `make quicktest`.
+
+## Placement
+
+- Put business logic tests beside the relevant package: `api/`, `api/*/`, `fire/business/*/`, `fire/core/*/`, `fire/processingimpl/`, or `integrations/*/`.
+- Reserve `fire/integrationtests/` for full-stack HTTP handler cross-feature tests.
+- Backoffice page tests must use `ta.Invoke`; direct handler calls do not render HTML.
+- Shopify proxy route tests should use actors from `integrations/shopify/shopifytesting`.
+
+## Setup
+
+- Use `ConfigureTenant` in `firetesting.Options`; do not call `ta.RC()` during `Configure`.
+- Use `TestingBehaviors.RunSetupJob` when setup job execution is needed.
+- Use `ta.RunJob(jobschema.SetupShopJob, &jobschema.ShopJobInput{TenantID: ta.Shop.ID})` instead of enqueueing setup-shop jobs.
+- Use `firetesting.AddFixture(ta, fixtures.X, opts...)` plus `ta.SaveFixtures()` when a fixture exists.
+- Use `firetesting.Latest[T](ta)` for the most recent entity.
+- `firetesting` auto-fills many zero IDs; set IDs only when assertions need stable values.
+- Bubbleflake IDs render as hex strings in analytics/logs; use hex constants when asserting those strings.
+- Use `ta.PushCoupon("CODE")` for predictable coupon codes.
+- Use `Shopify: true` only when ecommerce integration mocking is actually needed.
+
+## Assertions and HTTP
+
+- Use `github.com/andreyvit/assert`; avoid unnecessary type casts in generic assertions.
+- For enum comparisons, prefer explicit equality such as `assert.Eq(ta, status, mreferrals.ReferralStatusPending)`.
+- Prefer `fireassert.Contains`, `fireassert.Pts`, and `firetesting.CustomerBalance` where they fit.
+- Pass expected errors directly to `ta.Invoke` as the final parameter.
+- Do not test for HTTP 500.
+- Do not use bare `firetesting.ExpectedStatusCode(303)` for redirects; use redirect expectation helpers.
+- `ta.Invoke` sets auth cookies for the actor and closes transactions after the request.
+- For upload handlers, use `multipart.NewWriter` with `firetesting.WithBody` and `firetesting.WithContentType`.
+
+## Time, Money, Production Config
+
+- Tests start at `2022-04-01T12:00:00Z`; use `firetesting.At(...)` for fixed timestamps and `assert.MethodEqual` for exact time comparisons.
+- `monetary.Invalid` marks empty/invalid monetary input; zero is a valid amount.
+- JavaScript-to-Go monetary values must be strings using `.toFixed(6)`.
+- Apply multipliers to monetary amounts before converting to points.
+- Do not load broad production config copies from `fire/integrationtests/rendertests/testdata/*.json`; inspect them and encode only relevant fields through `Configure`/`ConfigureTenant`.
+- Harness production repro scenarios are registered in `fire/harness/reg-scenarios.go` and use `fire/harness/prod_repro.go`.
+
+## Domain Helpers
+
+- `PendingPointRedemptionsByCustomer` contains only pending redemptions; use `PointBalanceChangesByCustomer` for all point changes.
+- `fireassert.AchievementUnlocked` checks ownership exists and is active.
+- Default `PointsSpendingValue = monetary.Dollar / 10`, so 1 point is 10 cents.
+- OpenURL point sources need `Str1` set and must be enabled in `settings.FlexPointSources`.
+- Runa/Tango gift card vendibles need `VendiblesPointsValue`.
