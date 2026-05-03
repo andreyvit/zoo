@@ -9,7 +9,7 @@ Use this when reviewing a Zoo Workflow spec and active-subtask implementation pl
 
 Goal: catch weak implementation plans and material spec gaps before coding starts.
 
-Read and follow `.zoo/planreview.md` if it exists.
+Read and follow `.zoo/planning.md` and `.zoo/planreview.md` if exists.
 
 ## Review Method
 

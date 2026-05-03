@@ -7,8 +7,10 @@ if [[ $# -ne 1 ]]; then
 fi
 
 source_codex="$1/.codex"
+source_zoo="$1/.zoo"
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 target_codex="$script_dir/.codex"
+target_zoo="$script_dir/.zoo"
 
 if [[ ! -d "$source_codex" ]]; then
   echo "error: '$source_codex' is not a directory" >&2
@@ -25,13 +27,25 @@ if [[ ! -d "$source_codex/skills" ]]; then
   exit 1
 fi
 
-mkdir -p "$target_codex/skills"
+if [[ ! -d "$source_zoo" ]]; then
+  echo "error: '$source_zoo' is not a directory" >&2
+  exit 1
+fi
+
+mkdir -p "$target_codex/skills" "$target_zoo"
 
 source_codex_abs="$(cd -- "$source_codex" && pwd -P)"
+source_zoo_abs="$(cd -- "$source_zoo" && pwd -P)"
 target_codex_abs="$(cd -- "$target_codex" && pwd -P)"
+target_zoo_abs="$(cd -- "$target_zoo" && pwd -P)"
 
 if [[ "$source_codex_abs" == "$target_codex_abs" ]]; then
   echo "error: source .codex and target .codex are the same directory" >&2
+  exit 1
+fi
+
+if [[ "$source_zoo_abs" == "$target_zoo_abs" ]]; then
+  echo "error: source .zoo and target .zoo are the same directory" >&2
   exit 1
 fi
 
@@ -44,3 +58,5 @@ shopt -s nullglob
 for skill in "$source_codex_abs"/skills/zoo-*; do
   cp -R "$skill" "$target_codex_abs/skills/"
 done
+
+cp -R "$source_zoo_abs"/. "$target_zoo_abs/"

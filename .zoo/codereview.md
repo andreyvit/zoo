@@ -1,6 +1,6 @@
 ## Architecture
 
-- `bm/` and `bm/m*/` must not use `fire.Context`; `fdb/` may.
+- Check package boundaries: `bm/` and `bm/m*/` must not use `fire.Context`; `fdb/` may.
 - Shared controller/business logic should be in `fire/core/core*`, not duplicated in highest-level business packages.
 - Backoffice shared code belongs in `fire/business/backofficecommons/`; feature code belongs in `fire/business/backoffice/bo*/`.
 - For fireback extraction, verify `*RC` became `fire.Context`, unnecessary app parameters were removed, and `ApplyPageLayout` became `ApplyPageLayout: true`.

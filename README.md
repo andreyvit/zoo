@@ -1,4 +1,4 @@
-# Zoo 2.1
+# Zoo 2.2
 
 Codex/Claude workflows based on personality-infused skills.
 
@@ -7,7 +7,7 @@ This is the set of agents and skills I use in day-to-day production work as a CT
 See my [All Star Zoo](https://tarantsov.com/all-star-zoo/) post for way more context on the idea.
 
 
-## Zoo 2.1 for Codex
+## Zoo 2 for Codex
 
 New Zoo 2 is under `.codex`. (I will make a Claude version soon, too.) 
 
@@ -28,7 +28,7 @@ Invoke one of the three top-level skills:
 
 * `zoo-heavy` for a full spec-based Zoo workflow, with all work done in subagents, and separate steps for: planning, plan review, test writing, implementation, code review, doc writing.
 
-* `zoo-lite` for a spec-based Zoo workflow; subagents are only used for research, reviews and browser use; all planning and implementation work happens in the top-level agent.
+* `zoo-lite` for a faster spec-based Zoo workflow; subagents are only used for research, reviews and browser use; all planning and implementation work happens in the top-level agent.
 
 * `zoo-zero` to directly execute your instructions without writing a spec, but follow up with review/fix iterations until the reviewer is happy.
 
@@ -37,6 +37,8 @@ Zoo workflows use Bureau, so will create `.tasks` or `_tasks` folder (will use w
 Zoo 2 workflows create and maintain a spec file, `spec.md` under the task folder by default, although you can point it to a spec file elsewhere to override.
 
 Zoo 2 workflows split the task into subtasks -- iterations that are fully tested and valuable on their own; and the agent commits after each subtask. If your repo needs special commit instructions, be sure to create a commit skill; agents are good at invoking it. After the work is done, you are free to squash the commits.
+
+Zoo 2.2+ runs an uber-review after a normal review accepts the plan/code. Uber-review launches a focused reviewer per every file under .zoo/review/*.md, allowing you do to focused “security review”, “simplicity review”, “debuggability review” and whatever areas of focus you deem critical. Your .zoo/review/ can contain as many (or as few) files as you'd like. This repository contains an example set, but this is very much a research area right now.
 
 To request a revision, simply invoke Zoo skill again with a revision request. It will continue working in the same task folder and same spec file.
 
@@ -57,6 +59,7 @@ Under `.claude`, I still have Zoo 1 subagents and commands, basically the exact 
 * Zoo 1.1 adds Bureau MCP for more consistent reporting.
 * Zoo 2.0 is a reimagining of Zoo for Codex and the smarter GPT 5.4+ models. Introduces a spec file.
 * Zoo 2.1 refines Codex setup for GPT 5.5-xhigh, adds Zoo Lite and Zoo Zero workflows to reflect the preferred speed/accuracy balance of the smarter models, and is the first public release of Zoo 2.
+* Zoo 2.2 adds Uber Review to all Zoo flows.
 
 
 ## License

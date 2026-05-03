@@ -9,7 +9,7 @@ Use this when reviewing implementation changes in a Zoo workflow.
 
 Goal: find correctness, regression, and coverage issues before merge.
 
-Read and follow `.zoo/codereview.md` if it exists.
+Read and follow `.zoo/coding.md`, `.zoo/testing.md` and `.zoo/codereview.md` if exists.
 
 ## Review Method
 

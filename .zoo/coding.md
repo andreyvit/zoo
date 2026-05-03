@@ -4,6 +4,7 @@
 - Production code should use enum semantic methods, such as `status.IsPending()`, instead of direct equality checks.
 - Prefer `reg-*.go` files for registration patterns, such as API calls in `reg-apicalls.go`.
 - Use stdlib `slices`/`maps`, built-in `min`/`max`, `cmp.Or`, and `optional.ValueOrZero`.
+- Pass larger structs by pointer; if a struct is larger than roughly three `int64` fields, functions and methods should take `*T` unless value-copy semantics are intentional.
 - IDs are `bubbleflake.ID`; `mcom` aliases document domain-specific ID meanings.
 
 ## Dependencies and Packages

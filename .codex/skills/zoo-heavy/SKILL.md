@@ -169,7 +169,7 @@ Planning principles:
 - Zoo Heavy is not a waterfall. Plan the active `(next)` subtask deeply; future subtasks may include lightweight draft plans or current-best-guess notes, but avoid spending much time on details before promotion.
 - Use what was learned in completed subtasks, reports, tests, browser verification, and code review to re-plan the next subtask and adjust future subtask drafts before promoting them.
 - Future subtasks are scope boundaries and hypotheses; any tactical notes on them are provisional drafts.
-- After each completed subtask, rerun `planner` and `plan_reviewer` before coding the next one so the whole spec and active plan reflect the latest learnings.
+- After each completed subtask, rerun `planner`, `plan_reviewer`, and plan uberreview before coding the next one so the whole spec and active plan reflect the latest learnings.
 - During the initial planning pass, collect all consequential unclear user questions and run one user interview before implementation starts.
 - After implementation starts, research the uncertainty before blocking: inspect code, history, docs, production configuration, and production data when appropriate to collect enough evidence for the safest decision. Then use common sense, document the decision in `Decision log`, and proceed unless the choice is a high-impact product/strategy decision or super consequential tactical decision with no safe default.
 - `[blocker]` questions in `Open product and strategic questions` or new step reports are a hard gate only when that high bar is met: the orchestrator must run user interview immediately and must not route to other steps until blockers are resolved.
@@ -181,11 +181,13 @@ Execute this loop for the active `(next)` subtask:
 
 1. `planner`: research the codebase, update the whole spec from user input, codebase context, and execution memory; keep future subtasks as lightweight current-best-guess drafts; write the detailed tactical HOW for the active `(next)` subtask in a `plan` report.
 2. `plan_reviewer`: review both the overall spec and the active-subtask plan, then issue `approved` or `revise`.
-3. `test_writer`: write/update tests and define Browser test intent.
-4. `implementer`: implement minimal correct change.
-5. `browser_verifier`: run browser checks for browser-impact subtasks with Codex Browser Use, use Codex Computer Use only when Browser Use cannot cover the needed interaction, and produce screenshot/video evidence.
-6. `code_reviewer`: review for bugs/regressions/missing tests.
-7. `orchestrator` (no report required after this): follow `references/end-of-step.md`, enforce blocker gate, then choose next step.
+3. `orchestrator`: after `plan_reviewer` approves, use the `zoo-uberreview` skill to run an uberreview of the approved plan. If uberreview reports findings, route back to `planner`, then `plan_reviewer`, then plan uberreview again. Do not proceed to implementation until normal plan review and plan uberreview both have no unresolved findings.
+4. `test_writer`: write/update tests and define Browser test intent.
+5. `implementer`: implement minimal correct change.
+6. `browser_verifier`: run browser checks for browser-impact subtasks with Codex Browser Use, use Codex Computer Use only when Browser Use cannot cover the needed interaction, and produce screenshot/video evidence.
+7. `code_reviewer`: review for bugs/regressions/missing tests.
+8. `orchestrator`: after `code_reviewer` approves, use the `zoo-uberreview` skill to run an uberreview of the code written for the subtask. If uberreview reports findings, route back to fixes and validation, then `code_reviewer`, then code uberreview again. Do not complete the subtask until normal code review and code uberreview both have no unresolved findings.
+9. `orchestrator` (no report required after this): follow `references/end-of-step.md`, enforce blocker gate, then choose next step.
 
 If blocked, run `problem_solver`.
 
@@ -213,6 +215,9 @@ Quality bar:
 
 - `planner`: near-perfect User Input capture, top-to-bottom `Spec`, future-subtask current-best-guess drafts, active-subtask acceptance, and tactical HOW in the `plan` report before coding.
 - `plan_reviewer`/`code_reviewer`: if a concern is not addressed by the current contract/plan, request revision so the planner can respond; only allow proceeding when the review explicitly states why that concern can be ignored.
+- `zoo-uberreview`: run from the top-level orchestrator, not as a delegated single-step sub-agent, because the skill launches multiple review subagents itself.
+- Plan uberreview runs only after `plan_reviewer` approves. Treat its findings like plan-review findings: update the spec/plan through `planner`, rerun `plan_reviewer`, then rerun plan uberreview.
+- Code uberreview runs only after `code_reviewer` approves. Treat its findings like code-review findings: fix them, rerun relevant validation, rerun `code_reviewer`, then rerun code uberreview.
 - Do not defer omissions that can be resolved now.
 - For repo-specific architecture, UI, testing, review, and docs guidance, read the applicable `.zoo/*.md` file if it exists.
 
@@ -230,7 +235,7 @@ Only the top-level orchestrator may delegate. A delegated single-step sub-agent 
 
 When the top-level orchestrator launches a delegated step, the prompt must explicitly state that the recipient is a delegated sub-agent and must execute exactly one step itself. The prompt must also explicitly forbid running the full Zoo Heavy workflow, spawning subagents, and waiting on subagents.
 
-Use subagents for each step. Exact step-name match -> delegate. Else use best matching subagent by description. Else launch a general subagent, but always do each step in a subagent.
+Use subagents for each step except the orchestrator-owned `zoo-uberreview` gates. Exact step-name match -> delegate. Else use best matching subagent by description. Else launch a general subagent, but always do each non-uberreview step in a subagent.
 
 Thread hygiene:
 
@@ -267,7 +272,7 @@ A delegated subagent run (including blocked/failed) is incomplete until its repo
 
 Delegated sub-agents do not own routing. After they write their one report, they stop and hand control back to the orchestrator.
 
-Typical suffixes: `explore`, `user-request`, `plan`, `plan-review`, `tests`, `impl`, `browser-verify`, `docs`, `code-review`, `user-interview`, `solver`.
+Typical suffixes: `explore`, `user-request`, `plan`, `plan-review`, `review-simplicity`, `tests`, `impl`, `browser-verify`, `docs`, `code-review`, `user-interview`, `solver`.
 
 Every delegated subagent report must include:
 
@@ -294,7 +299,8 @@ Plan report conventions:
 - `plan-review` report is written by `plan_reviewer` and includes `Plan: <plan-report-file>` and `Verdict: approved|revise`.
 - `plan-review` reviews both the whole spec and the active-subtask plan.
 - Any unaddressed concern in plan review requires `Verdict: revise` unless the report explicitly records why that concern is safe to ignore.
-- Only `approved` plans can be referenced from `Subtasks` as active `Plan:` pointer.
+- Plan uberreview is run by the orchestrator with `zoo-uberreview` after `plan-review` approves. Its per-instruction reviewer reports and combined report use `review-smt` suffixes, and the combined report must identify the reviewed plan and unresolved findings.
+- Only plans approved by both `plan_reviewer` and plan uberreview can be referenced from `Subtasks` as active `Plan:` pointer.
 
 Evidence flow:
 
@@ -307,6 +313,7 @@ Evidence flow:
   - `browser_verifier`: browser run results + screenshot/video artifacts + Browser Use/Computer Use evidence notes
   - `docs_writer` (closeout): pointers to docs updates that preserve useful learnings for future work
   - `code_reviewer`: pointers to blocking findings and regression checks (when any)
+  - code uberreview: combined report pointer and any blocking findings or accepted non-actionable notes
   - `planner`/`plan_reviewer`: material spec/plan outputs when they change acceptance definitions, decisions, or execution memory
 - The orchestrator picks the best, most relevant evidence pieces and maps each acceptance check to those artifacts.
 - If evidence is missing for any acceptance check, the orchestrator must route back to the relevant execution agent(s) to produce it before marking the subtask done.
@@ -385,7 +392,7 @@ Spec vs plan boundary:
 
 - `spec.md` is durable whole-task planning: user input, product/behavior contract, decisions, execution memory, subtask status, and lightweight future-subtask drafts.
 - Detailed tactical HOW for the active `(next)` subtask lives in `plan` / `plan-review` reports.
-- Material spec edits go through `planner` and `plan_reviewer`.
+- Material spec edits go through `planner`, `plan_reviewer`, and plan uberreview.
 - The `orchestrator` is the mechanical single writer for status/log updates.
 
 Evidence gate:

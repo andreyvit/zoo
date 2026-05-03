@@ -8,7 +8,7 @@
 
 ## Placement
 
-- Put business logic tests beside the relevant package: `api/`, `api/*/`, `fire/business/*/`, `fire/core/*/`, `fire/processingimpl/`, or `integrations/*/`.
+- Put business logic tests beside the relevant package: `api/`, `api/*/`, `fire/business/*/`, `fire/core/*/`, `fire/processingimpl/`, `integrations/*/`, or client-specific packages.
 - Reserve `fire/integrationtests/` for full-stack HTTP handler cross-feature tests.
 - Backoffice page tests must use `ta.Invoke`; direct handler calls do not render HTML.
 - Shopify proxy route tests should use actors from `integrations/shopify/shopifytesting`.

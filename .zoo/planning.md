@@ -1,7 +1,7 @@
 ## Product and Sources
 
 - Bubblehouse is a loyalty platform for points, tiers, order earning, redemptions, subscription rewards, and related loyalty flows.
-- Shopify is native; Magento, WooCommerce, and custom systems integrate through APIs.
+- Shopify is native; Magento, WooCommerce, BigCommerce, HubSpot, Klaviyo, and custom systems integrate through APIs or integration packages.
 - Linear issue context: `linearis issues read DEV-1499`; image embeds: `linearis embeds download <url> --output <path>`. See `_ai/linear.md`.
 - Production reference configs live in `fire/integrationtests/rendertests/testdata/*.json`.
 - Ordinary tests should inspect those configs, then encode only relevant fields through `Configure` and `ConfigureTenant`.

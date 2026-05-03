@@ -17,10 +17,12 @@ Use this workflow only when you are the main agent running the task end to end.
 
 If the prompt says you are a delegated `code_reviewer`, execute exactly that review step, write the required `code-review` report, and stop. The prompt must explicitly say this is Zoo Zero and no spec file exists. Do not run Zoo Zero, spawn subagents, wait on subagents, or edit files.
 
+Delegated `code_reviewer` never runs `zoo-uberreview`. The top-level agent runs uberreview after normal code review approves, because `zoo-uberreview` launches multiple reviewer subagents itself.
+
 ## Workflow
 
 - Do not create, update, or require a spec file. If one already exists, leave it untouched unless the user explicitly asks to edit it.
-- Do not use `zoo-plan`, `planner`, or `plan_reviewer`.
+- Do not use `zoo-plan`, `planner`, or `plan_reviewer`; Zoo Zero has no plan-review or plan-uberreview phase.
 - Do not create subtasks or planning-only reports.
 - At Zoo Zero start, write a `user-request` Bureau report before implementation. It captures the user request/ticket context, initial research, direct plan, expected validation, browser-testing need, and known risks. This report replaces the spec/plan handoff.
 - If the user request references a ticket, issue, PR, or similar work item, read it and treat its contents as part of the user request; direct user chat overrides ticket text when they conflict.
@@ -55,9 +57,10 @@ If the prompt says you are a delegated `code_reviewer`, execute exactly that rev
    - remaining risks
 7. If a finding appears wrong, record the concrete evidence in the next `fixes` report and rerun `code_reviewer`; the finding remains unresolved until `code_reviewer` accepts the evidence or the code is changed.
 8. Repeat steps 3-7 until `code_reviewer` is happy and has no unresolved findings.
-9. For repo changes, use the `commit` skill after review is happy unless the user explicitly asked not to commit.
+9. After `code_reviewer` approves, the top-level agent uses `zoo-uberreview` to review the code written for the task. If uberreview reports findings, implement them, rerun relevant tests/browser checks, write a `fixes` report, rerun `code_reviewer`, then rerun code uberreview. Repeat until normal code review and code uberreview both have no unresolved findings.
+10. For repo changes, use the `commit` skill after both review layers are happy unless the user explicitly asked not to commit.
 
-Do not stop while code-review findings remain unresolved. Do not stop before rerunning `code_reviewer` after fixes.
+Do not stop while code-review or code-uberreview findings remain unresolved. Do not stop before rerunning `code_reviewer` and code uberreview after fixes.
 
 ## Evidence
 
@@ -77,11 +80,12 @@ Do not stop while code-review findings remain unresolved. Do not stop before rer
 - `impl` report is written by the top-level agent before the first code-review pass.
 - `fixes` reports are written by the top-level agent before each re-review after code-review findings.
 - `code-review` reports are written by `code_reviewer`; every Zoo Zero reviewer invocation must explicitly say no spec file exists.
+- Code uberreview is run by the top-level agent with `zoo-uberreview` after normal code review approves. Its per-instruction reviewer reports and combined report use `review-smt` suffixes, and the combined report identifies the reviewed code and unresolved findings.
 
 ## Stop Conditions
 
 Stop only when one of these is true:
 
-- `code_reviewer` has no unresolved findings, required validation/evidence is complete, docs are updated when needed, and commit is complete or explicitly not applicable.
+- `code_reviewer` and code uberreview have no unresolved findings, required validation/evidence is complete, docs are updated when needed, and commit is complete or explicitly not applicable.
 - A blocker prevents progress and cannot be resolved by research, implementation, validation, or code-review iteration.
 - The user explicitly asks to pause or stop.

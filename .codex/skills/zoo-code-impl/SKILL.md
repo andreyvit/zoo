@@ -9,7 +9,7 @@ Use this when implementing an approved Zoo active-subtask plan.
 
 Goal: deliver the smallest correct change that passes tests and respects architecture.
 
-Read and follow `.zoo/coding.md` if it exists.
+Read and follow `.zoo/coding.md` and `.zoo/testing.md` if exists.
 
 ## Implementation Method
 
