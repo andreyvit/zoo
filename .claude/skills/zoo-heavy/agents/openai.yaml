@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Heavy"
+  short_description: "Spec workflow with subagent per step"
+  default_prompt: "Use $zoo-heavy to run the spec-based Zoo 2.1 workflow with a subagent for each step."
+policy:
+  allow_implicit_invocation: false

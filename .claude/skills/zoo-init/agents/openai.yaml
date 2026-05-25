@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Init"
+  short_description: "Research and initialize Zoo repo customization"
+  default_prompt: "Use $zoo-init to research this repository, initialize real repo-local Zoo customization files, and verify Bureau MCP access."
+policy:
+  allow_implicit_invocation: false

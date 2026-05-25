@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zoo HR"
+  short_description: "Improve Zoo repo guidance from feedback"
+  default_prompt: "Use $zoo-hr to update Zoo repo guidance from operational feedback."

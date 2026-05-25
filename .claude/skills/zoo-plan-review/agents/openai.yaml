@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Plan Review"
+  short_description: "Review Zoo specs and active plans"
+  default_prompt: "Use $zoo-plan-review to review a Zoo spec and active-subtask plan."
+policy:
+  allow_implicit_invocation: false

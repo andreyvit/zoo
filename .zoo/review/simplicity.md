@@ -15,6 +15,9 @@ It's also often just a case of thinking, “this part is shit; what else could I
 So first identify the shitty parts:
 
 - Concepts/abstractions that are murky or leaky.
+- Wrapper types named `Resolved*`, `*Target`, `*Ref`, or similar that duplicate an existing domain model instead of adding a distinct concept.
+- Partial model values such as `&SomeModel{ID: id}` passed through core code. The caller should usually resolve the real model at the edge, or the callee should accept the ID directly at that boundary.
+- Internal compatibility aliases such as `OldName = NewName` after a rename. Unless there is a real external or persisted compatibility boundary, update callers and delete the alias.
 - Functions that have no good name, because what they do is hard to explain.
 - Names that are too abstract, because the thing does not have a clear, specific function or role.
 - Big walls of code that do not OBVIOUSLY do the right thing. Like, do I have to read every line to figure out if there's a huge nasty surprise inside?

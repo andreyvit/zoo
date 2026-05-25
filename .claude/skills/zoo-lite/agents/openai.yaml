@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Lite"
+  short_description: "Spec workflow with research/review/browser agents"
+  default_prompt: "Use $zoo-lite to run the spec-based Zoo 2.1 workflow with research, review, and browsing subagents."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Test Writing"
+  short_description: "Write tests for Zoo subtasks"
+  default_prompt: "Use $zoo-test-writing to write tests for a Zoo active subtask."
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Zero"
+  short_description: "Direct execution plus review/fix iterations"
+  default_prompt: "Use $zoo-zero for direct execution followed by review+fix iterations."
+policy:
+  allow_implicit_invocation: false

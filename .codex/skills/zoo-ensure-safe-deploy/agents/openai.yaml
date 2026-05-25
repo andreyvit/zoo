@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Ensure Safe Deploy"
+  short_description: "De-risk unpushed commits before deploy"
+  default_prompt: "Use $zoo-ensure-safe-deploy to prove my unpushed commits are safe to deploy."
+policy:
+  allow_implicit_invocation: false

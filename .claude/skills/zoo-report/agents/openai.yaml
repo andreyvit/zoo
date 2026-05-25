@@ -1,0 +1,4 @@
+interface:
+  display_name: "Zoo Report"
+  short_description: "Summarize completed Zoo workflow work"
+  default_prompt: "Use $zoo-report to summarize completed Zoo workflow work for the user."

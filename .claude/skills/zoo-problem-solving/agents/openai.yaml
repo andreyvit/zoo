@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Problem Solving"
+  short_description: "Investigate Zoo blockers"
+  default_prompt: "Use $zoo-problem-solving to investigate a Zoo workflow blocker."
+policy:
+  allow_implicit_invocation: false

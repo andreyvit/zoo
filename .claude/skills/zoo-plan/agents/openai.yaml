@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Plan"
+  short_description: "Plan active Zoo Workflow subtasks"
+  default_prompt: "Use $zoo-plan to plan active Zoo Workflow subtasks."
+policy:
+  allow_implicit_invocation: false

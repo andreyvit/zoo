@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Proposal"
+  short_description: "Write durable Zoo proposal files"
+  default_prompt: "Use $zoo-proposal to write a Zoo proposal for cross-cutting work."
+policy:
+  allow_implicit_invocation: false

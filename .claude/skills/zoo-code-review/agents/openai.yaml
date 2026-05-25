@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Code Review"
+  short_description: "Review Zoo implementation changes"
+  default_prompt: "Use $zoo-code-review to review Zoo implementation changes."
+policy:
+  allow_implicit_invocation: false
