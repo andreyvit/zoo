@@ -5,6 +5,8 @@ description: Update durable documentation for completed Zoo workflow work. Use w
 
 # Zoo Docs
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when updating durable docs after Zoo implementation work.
 
 Goal: preserve useful, accurate learnings without turning docs into a commit log.

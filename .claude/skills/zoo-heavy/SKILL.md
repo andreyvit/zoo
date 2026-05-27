@@ -5,7 +5,11 @@ description: "Spec-based Zoo 2.1 workflow with subagent for each step. Use only 
 
 # Zoo Heavy
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Canonical artifact: `.tasks/<task>/spec.md` or `_tasks/<task>/spec.md`, unless the user explicitly asks to use a spec file under `.spec/`.
+
+If a task root such as `.tasks/`, `_tasks/`, or a repo-specific alternate is ignored by git, every file under that root is workspace-only Zoo state. Never stage, force-add, commit, or push those files, including additions, modifications, or deletions of paths that were already tracked. Do not count ignored task-root files as uncommitted workflow changes.
 
 ## Modes
 
@@ -38,6 +42,8 @@ When there is any ambiguity, prefer delegated single-step mode over full-workflo
     <summary of changes to be made, 1-3 paragraphs>
 
     Why: <rationale for the changes if provided>
+
+    Original requested scope: <exact scope of what the user explicitly asked for, including original plan boundaries and non-goals when the user started with a plan; do not include agent-added extras>
 
     Hard constraints: <anything that user said MUST be done or said is a HARD constraint>
 
@@ -112,6 +118,11 @@ When there is any ambiguity, prefer delegated single-step mode over full-workflo
     - (USER INPUT) Do not mention re-fribernation in externally visible docs and user interfaces, it's an internal term that only devs understand; instead word it around “queued updates”.
 
 
+    ## Dependency Changes
+
+    <changes to dependency sets, dependency versions, and code in modifiable dependency checkouts, with rationale and source report/commit when known. Write `None` when there are no dependency changes.>
+
+
     ## Open product and strategic questions
 
     <list only the most consequential unclear questions that user should decide -- important product decisions, strategy-level decisions, and super consequential tactical decisions. Don't punt minor implementation decisions to user. Ask these during initial planning whenever possible. After implementation starts, research the uncertainty first: inspect code, history, docs, production configuration, and production data when appropriate; then prefer documenting a reasonable evidence-backed decision in Decision log and proceeding unless the uncertainty is truly unsafe to resolve without the user. Explain the dilemma in detail, and include technical and product CONSEQUENCES of each choice! e.g.:>
@@ -163,7 +174,7 @@ When there is any ambiguity, prefer delegated single-step mode over full-workflo
 - Use `.tasks/<task>/spec.md` as the spec source of truth.
 - If the user explicitly asks to use a spec file under `.spec/`, that file overrides the default Bureau spec path and becomes the spec source of truth. Keep Bureau for task/report/evidence operations.
 - If `spec.md` does not exist, `planner` drafts it from the user request.
-- `User Input` records what the user asked for and must be updated when the user clarifies, corrects, or overrides direction.
+- `User Input` records what the user asked for and must be updated when the user clarifies, corrects, or overrides direction. It preserves the exact original scope for closeout; do not backfill agent-added extras into it.
 - If the user request references a ticket, issue, PR, or similar work item, its contents are part of the user request. Read it before planning and capture its hard constraints, soft preferences, unknowns, and draft ideas in `User Input`; direct user chat overrides ticket text when they conflict.
 - If the user asks for revisions or follow-up changes to a prior Zoo Heavy run, continue in the same Bureau task and same spec. Do not start a new task/spec unless the user explicitly asks. Update `User Input`, reopen planning by adding or promoting a real `(next)` revision subtask, and preserve prior completed subtasks/evidence.
 
@@ -183,11 +194,13 @@ Planning principles:
 - During the initial planning pass, collect all consequential unclear user questions and run one user interview before implementation starts.
 - After implementation starts, research the uncertainty before blocking: inspect code, history, docs, production configuration, and production data when appropriate to collect enough evidence for the safest decision. Then use common sense, document the decision in `Decision log`, and proceed unless the choice is a high-impact product/strategy decision or super consequential tactical decision with no safe default.
 - `[blocker]` questions in `Open product and strategic questions` or new step reports are a hard gate only when that high bar is met: the orchestrator must run user interview immediately and must not route to other steps until blockers are resolved.
-- Default execution mode is continuous: after a subtask is completed, the orchestrator must run `docs_writer`, then `commit`, then continue into the next routed step automatically. Do not stop between subtasks unless blocked, a mandatory step fails, the user asks to pause, or a final `planner` report explicitly declares `Full task status: complete`, `Reviewed: yes`, and `Closed out: yes`. When the final planner report closes the full task, use `zoo-report` before sending the final response.
+- Default execution mode is continuous: after a subtask is completed, the orchestrator must run `docs_writer`, then `commit`, then continue into the next routed step automatically. Do not stop between subtasks unless blocked, a mandatory step fails, the user asks to pause, or a final `planner` report explicitly declares `Full task status: complete`, `Reviewed: yes`, and `Closed out: yes`. When the final planner report closes the full task, start final closeout by reading `.zoo/task-finish.md` if it exists; those instructions take priority over this skill, including whether to run `zoo-rebase`. Unless task-finish overrides it, run `zoo-rebase`, then use `zoo-report` before sending the final response.
 
 ## Subtask Loop
 
 Execute this loop for the active `(next)` subtask:
+
+Before planning a newly active `(next)` subtask, read and follow `.zoo/subtask-start.md` if it exists.
 
 1. `planner`: research the codebase, update the whole spec from user input, codebase context, and execution memory; keep future subtasks as lightweight current-best-guess drafts; write the detailed tactical HOW for the active `(next)` subtask in a `plan` report.
 2. `plan_reviewer`: review both the overall spec and the active-subtask plan, then issue `approved` or `revise`.
@@ -196,7 +209,7 @@ Execute this loop for the active `(next)` subtask:
 5. `implementer`: implement minimal correct change.
 6. `browser_verifier`: run browser checks for browser-impact subtasks with the harness in-page browser tool (Codex: Codex Browser Use; Claude Code: Chrome extension MCP), use the OS-level automation fallback (Codex: Codex Computer Use) only when the in-page tool cannot cover the needed interaction, and produce screenshot/video evidence.
 7. `code_reviewer`: review for bugs/regressions/missing tests.
-8. `orchestrator`: after `code_reviewer` approves, use the `zoo-uberreview` skill to run an uberreview of the code written for the subtask. If uberreview reports findings, route back to fixes and validation, then `code_reviewer`, then code uberreview again. Do not complete the subtask until normal code review and code uberreview both have no unresolved findings.
+8. `orchestrator`: after `code_reviewer` approves, check the latest `Final-state validation` entries from `test_writer`, `implementer`, `browser_verifier`, `code_reviewer`, and any `fixes` reports. If relevant passing validation is missing or stale for the current code state, run it once yourself before or in parallel with code uberreview. Use `zoo-uberreview` to review the code written for the subtask, telling reviewers that validation has passed or is orchestrator-owned and that they must not rerun broad suites. If validation fails or uberreview reports findings, route back to fixes and validation, then `code_reviewer`, then code uberreview again. Do not complete the subtask until final-state validation, normal code review, and code uberreview all have no unresolved findings.
 9. `orchestrator` (no report required after this): follow `references/end-of-step.md`, enforce blocker gate, then choose next step.
 
 If blocked, run `problem_solver`.
@@ -213,13 +226,15 @@ Browser-impact rule:
 Closeout rule:
 
 - `docs_writer` runs during closeout for completed subtasks (not as a normal pre-closeout execution step).
+- Final task closeout starts by reading `.zoo/task-finish.md` if it exists, immediately after all workflow commits are complete. Instructions in that file take priority over this skill's closeout instructions, including skipping or replacing `zoo-rebase`. Unless task-finish overrides it, run `zoo-rebase`, then run `zoo-report`.
 
 Loop continuation rule:
 
 - Do not stop after "subtask complete" summaries.
 - Once a subtask is marked `(done)`, finish closeout (`docs_writer` -> `commit`) and immediately continue the workflow for the active `(next)` subtask.
-- A subtask is not fully complete if changes are still uncommitted (unless commit failure is explicitly reported as blocking).
-- The full task is not complete just because no `(next)` remains. Before stopping, run `planner` for a final task-completion check. Stop only when that planning report declares the full task fully done, reviewed, and closed out, then use `zoo-report` for the final user-facing report.
+- A subtask is not fully complete if trackable workflow changes outside ignored task roots are still uncommitted (unless commit failure is explicitly reported as blocking).
+- The full task is not fully complete while any trackable Zoo workflow changes outside ignored task roots remain uncommitted. Only changes that were already present before the workflow started and are unrelated may remain uncommitted; identify them in the final report.
+- The full task is not complete just because no `(next)` remains. Before stopping, run `planner` for a final task-completion check. Stop only when that planning report declares the full task fully done, reviewed, and closed out, then read `.zoo/task-finish.md` if it exists, follow it as higher priority than this skill, run `zoo-rebase` unless task-finish overrides it, and use `zoo-report` for the final user-facing report.
 
 Quality bar:
 
@@ -227,7 +242,7 @@ Quality bar:
 - `plan_reviewer`/`code_reviewer`: if a concern is not addressed by the current contract/plan, request revision so the planner can respond; only allow proceeding when the review explicitly states why that concern can be ignored.
 - `zoo-uberreview`: run from the top-level orchestrator, not as a delegated single-step sub-agent, because the skill launches multiple review subagents itself.
 - Plan uberreview runs only after `plan_reviewer` approves. Treat its findings like plan-review findings: update the spec/plan through `planner`, rerun `plan_reviewer`, then rerun plan uberreview.
-- Code uberreview runs only after `code_reviewer` approves. Treat its findings like code-review findings: fix them, rerun relevant validation, rerun `code_reviewer`, then rerun code uberreview.
+- Code uberreview runs only after `code_reviewer` approves and the orchestrator has checked whether the current code state is already covered by passing final-state validation. Treat validation failures like code-review findings: fix them, rerun relevant validation, rerun `code_reviewer`, then rerun code uberreview.
 - Do not defer omissions that can be resolved now.
 - For repo-specific architecture, UI, testing, review, and docs guidance, read the applicable `.zoo/*.md` file if it exists.
 
@@ -264,6 +279,7 @@ Reference checklists (progressive disclosure):
 - Canonical spec path: `.tasks/<task>/spec.md`
 - Explicit user-requested `.spec/...` files override the canonical spec path for spec reads/writes only.
 - Evidence dir: `.tasks/<task>/evidence/`
+- If the task root is ignored by git, it is not commit material. Use Bureau reports and evidence there, but never stage, force-add, commit, or push files under that root.
 - Use Bureau MCP for all task and report operations; do not use shell commands for these.
 - Do not list task/report directories or invent sequential report filenames manually; Bureau MCP handles that.
 - Before each step/subagent run, call `mcp__bureau__current_task` to get the current task slug, report directory, and report filenames.
@@ -294,9 +310,12 @@ Every delegated subagent report must include:
 - open questions only when they meet the Zoo Heavy question policy; tag only true blockers as `[blocker]`
 - next recommended step
 
+`implementer` reports must also include `Dependency changes`: added/removed/updated dependencies, version or dependency-set changes, code changes in modifiable dependency checkouts, or `none`, with rationale.
+
 Execution-agent evidence requirements (`test_writer`, `implementer`, `browser_verifier`, `docs_writer`, `code_reviewer`, `problem_solver`):
 
 - In each report, include a clear `Evidence produced` section.
+- In `test_writer`, `implementer`, `browser_verifier`, `code_reviewer`, and `problem_solver` reports, include `Final-state validation`: commands run after the step's last file change, result on the exact state left by the step, whether any file changed afterward, and the command still needed when validation is missing or stale.
 - For each evidence item, include: pointer + one plain line saying what it proves.
 - Prefer pointers to existing files (`path[:line]`) for code/tests/docs.
 - Do not copy source files, test files, or docs into `.tasks/<task>/evidence/`.
@@ -327,6 +346,7 @@ Evidence flow:
   - `planner`/`plan_reviewer`: material spec/plan outputs when they change acceptance definitions, decisions, or execution memory
 - The orchestrator picks the best, most relevant evidence pieces and maps each acceptance check to those artifacts.
 - If evidence is missing for any acceptance check, the orchestrator must route back to the relevant execution agent(s) to produce it before marking the subtask done.
+- Before marking a code subtask done, the orchestrator must have a non-stale passing `Final-state validation` entry for the current code state or must run that validation once itself. Missing, stale, or failing final-state validation routes back to fixes/validation.
 
 Backlog routing:
 
@@ -356,6 +376,7 @@ Use exactly the sections from `Spec format`, in that order.
 Section guidance:
 
 - `User Input`: preserve the user's request separately from agent interpretation. Update it whenever the user clarifies, corrects, or overrides direction.
+  - `Original requested scope`: preserve the exact requested outcomes, boundaries, non-goals, and original user-supplied plan. Keep agent-added extras out so `zoo-report` can compare final work against requested scope.
   - If the user references a ticket, issue, PR, or similar work item, treat its contents as part of the user request and preserve the relevant details here.
   - Direct user chat overrides ticket text when they conflict.
   - `Hard constraints`: only user-stated MUST/HARD constraints.
@@ -372,6 +393,9 @@ Section guidance:
   - Avoid filler, background prose, generic risks, and restating the request in longer words.
 - `Decision log`: record real alternatives considered and the chosen path with a brief reason.
   - Mark user overrides as `(USER INPUT)` and include the user's rationale when provided.
+- `Dependency Changes`: record added, removed, or updated dependencies, dependency version/set changes, and code changes in modifiable dependency checkouts.
+  - Include the rationale and source report/commit when known.
+  - Write `None` when no dependency changes are planned or made.
 - `Open product and strategic questions`: only questions the user should decide.
   - Ask only the most consequential unclear questions: important product decisions, strategy-level decisions, and super consequential tactical decisions.
   - During initial planning, identify and ask all of these questions in one batch when possible.
@@ -404,7 +428,7 @@ Section guidance:
 
 Spec vs plan boundary:
 
-- `spec.md` is durable whole-task planning: user input, product/behavior contract, decisions, execution memory, refactorings, subtask status, and lightweight future-subtask drafts.
+- `spec.md` is durable whole-task planning: user input, product/behavior contract, decisions, dependency changes, execution memory, refactorings, subtask status, and lightweight future-subtask drafts.
 - Detailed tactical HOW for the active `(next)` subtask lives in `plan` / `plan-review` reports.
 - Material spec edits go through `planner`, `plan_reviewer`, and plan uberreview.
 - The `orchestrator` is the mechanical single writer for status/log updates.

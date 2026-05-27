@@ -5,6 +5,8 @@ description: Write durable Zoo proposal files for significant cross-cutting work
 
 # Zoo Proposal
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Capture significant cross-cutting work as a proposal without expanding the current task.
 
 ## Workflow

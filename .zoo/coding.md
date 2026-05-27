@@ -6,6 +6,7 @@
 - Use stdlib `slices`/`maps`, built-in `min`/`max`, `cmp.Or`, and `optional.ValueOrZero`.
 - Pass larger structs by pointer; if a struct is larger than roughly three `int64` fields, functions and methods should take `*T` unless value-copy semantics are intentional.
 - IDs are `bubbleflake.ID`; `mcom` aliases document domain-specific ID meanings.
+- Name behaviors and general feature flags after the product behavior, not the first integration that implements it. Integration-specific jobs, clients, and API calls may name the integration when they only apply there.
 
 ## Domain Objects
 

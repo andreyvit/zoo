@@ -7,6 +7,8 @@ metadata:
 
 # Zoo Plan
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when you are the planner for a Zoo Workflow delegated step.
 
 Goal: keep the whole spec useful while producing a detailed implementation plan for the active `(next)` subtask.
@@ -19,15 +21,17 @@ Rules:
 - Infuse planning with Don Melton-style pragmatism: shipping-first, concrete, and no hand-wavy steps.
 - Trace behavior from entry points through the relevant code path before planning behavior changes. Name key functions, conditions, and data flow in the tactical HOW.
 - Search for existing patterns before designing new mechanisms. Prefer extending established validation, error, UI, settings, routing, enum, and helper patterns unless the plan records why they cannot fit.
+- Use what the codebase already has when it fits. Improve existing abstractions and shared patterns when they are insufficient but fixable. Invent new abstractions or approaches only when existing options are inadequate.
 - Treat limitations in shared first-party dependencies as fixable code, not external constraints. Compare fixing the dependency against carrying a workaround.
 - Preserve domain type distinctions. Do not add fallback behavior between different business concepts unless the user or existing contract explicitly calls for it.
 - When research discovers facts that differ from assumptions, validate those facts against production correctness and real configurations, not only against expected test output.
 - If bounded researcher reports exist, fold their findings into the spec and plan. If research is missing for a non-trivial area, do that research before planning instead of guessing.
 - Blend two planning levels in one step:
-  - update the spec file as the whole-task contract: user input, product/behavior spec, decisions, open strategic questions, execution memory, refactorings, subtask boundaries, and lightweight current-best-guess drafts for future subtasks
+  - update the spec file as the whole-task contract: user input, product/behavior spec, decisions, dependency changes, open strategic questions, execution memory, refactorings, subtask boundaries, and lightweight current-best-guess drafts for future subtasks
   - produce detailed tactical HOW for the active `(next)` subtask only
-- Use the required spec format exactly: `User Input`, `Spec`, `Decision log`, `Open product and strategic questions`, `Execution memory`, `Refactorings`, `Subtasks`.
-- Keep `User Input` separate from agent interpretation; update it when the user clarifies, corrects, or overrides direction.
+- Use the required spec format exactly: `User Input`, `Spec`, `Decision log`, `Dependency Changes`, `Open product and strategic questions`, `Execution memory`, `Refactorings`, `Subtasks`.
+- Keep `User Input` separate from agent interpretation; update it when the user clarifies, corrects, or overrides direction. It is the exact original-scope baseline for closeout, not a retroactive summary of what the agent implemented.
+- Preserve the user's explicit scope in `User Input`: requested outcomes, boundaries, non-goals, hard constraints, soft preferences, uncertainty, and any original user-supplied plan. Keep agent-added extras out of `User Input`; record deliberate extras in `Spec`, `Decision log`, `Refactorings`, or subtasks with rationale.
 - If the user asks for revisions or follow-up changes after prior work in the same Zoo task, update the existing spec file instead of creating a new one. Preserve completed subtasks and evidence, add the new request to `User Input`, and create/promote a real `(next)` revision subtask.
 - If the user request references a ticket, issue, PR, or similar work item, read it and treat its contents as part of the user request. Preserve its hard constraints, soft preferences, unknowns, and draft ideas in `User Input`; direct user chat overrides ticket text when they conflict.
 - Mark completed itemized lines under `User Input` and `Spec` with `(done)` immediately after the bullet marker, e.g. `- (done) Add Foo feature package`.
@@ -36,6 +40,7 @@ Rules:
 - Include concrete implementation surface in `Spec`: packages, routes, templates, structs, fields, permissions, jobs, migrations, and integration points.
 - Remove filler, generic background, generic risks, and restatements of the request in longer words.
 - Use `Decision log` only for real alternatives considered or user overrides.
+- Use `Dependency Changes` for planned or completed changes to dependency sets, dependency versions, and code in modifiable dependency checkouts. Include rationale and the source report/commit when known; write `None` when there are no dependency changes.
 - Use `Open product and strategic questions` only for the most consequential unclear user decisions: important product decisions, strategy-level decisions, and super consequential tactical decisions.
 - During initial planning, surface all such questions for one upfront user interview when possible.
 - After implementation starts, research uncertainty before blocking: inspect code, history, docs, production configuration, and production data when appropriate to identify the safest choice.
@@ -44,10 +49,14 @@ Rules:
 - Keep `Refactorings` for proposals and refactorings from this task. Proposal entries use ``- Proposal: `<proposal path>` - <finding>``. Completed refactoring entries use `- Done: <subtask/commit/report> - <what changed>`.
 - Keep the `Subtasks` list outcome-focused, with `(done)` / `(next)` / `(future)` status on the primary line.
 - Split subtasks by standalone functionality: if a piece of functionality stands on its own and either provides independent user value or has a complex implementation that can be tested on its own, make it a separate subtask. Prefer smaller subtasks; avoid bundling separate standalone slices into one broad `(next)`.
-- Use `zoo-refactoring` when planning discovers work outside the current task or active subtask. It routes consequential cross-cutting changes to proposals, broad mundane refactors to separate subtasks/commits, and small low-pollution edits into the current task.
+- Use `zoo-refactoring` when planning discovers work outside the current task or active subtask, a scope-expanding change, or a local refactor that would make the touched path diverge from similar code. It routes consequential cross-cutting or local-divergence changes to proposals, broad mundane refactors to separate subtasks/commits, and small low-pollution edits into the current task.
 - When refactoring routes to a proposal, write the proposal when appropriate and record it in `Refactorings`; when it routes to a separate subtask, include a `Refactoring request` in the plan report so the orchestrator can apply routing and commit separation intentionally.
+- Do not expand the active subtask just because research found a broader security, debuggability, modularity, or simplicity gap. Scope complex changes in only when they were explicitly requested, are a natural part of the request, or technically block useful progress with one reasonable implementation path.
+- Prefer proposals for surprising, non-blocking, or multi-approach improvements, especially when the task uses an existing common framework and the real fix is to improve shared code project-wide.
+- Do not plan a local refactor just because it can be contained to the active files. If it creates a one-off cleaner pattern while similar code keeps using the old shared approach, keep the local implementation consistent and propose the global refactor.
+- Do not ignore required changes routed to proposals: record why the change is desired, what it improves, and what alternatives exist.
 - If the spec has no active `(next)` subtask, or the active subtask is only a placeholder/TBD, define the first real implementation subtask, draft future subtasks, and plan that actual work in the same pass. Do not create or plan a separate planning-only subtask.
-- If all known subtasks are `(done)` and there is no `(future)` work left, run a final task-completion planning pass instead of inventing work. Verify the whole task against `User Input`, `Spec`, reports, evidence, reviews, docs, and commits. If anything remains, add a real `(next)` subtask and plan it. If everything is complete, declare that the task is fully done, reviewed, and closed out, with the evidence/review/commit basis for that declaration.
+- If all known subtasks are `(done)` and there is no `(future)` work left, run a final task-completion planning pass instead of inventing work. Verify the whole task against `User Input`, `Spec`, `Dependency Changes`, reports, evidence, reviews, docs, and commits. If anything remains, add a real `(next)` subtask and plan it. If everything is complete, declare that the task is fully done, reviewed, and closed out, with the evidence/review/commit basis for that declaration.
 - Do not treat the spec as a waterfall: plan the active `(next)` subtask in detail; `(future)` subtasks may include lightweight current-best-guess drafts, but avoid spending much time on details before promotion.
 - When promoting or editing the next subtask, use `Execution memory` and learnings from completed subtasks, reports, tests, browser verification, and code review to re-plan the next subtask and revise future drafts.
 - Put subtask details on indented child lines: `Acceptance:`, `Browser impact:`, `Plan:`, and `Evidence:` when relevant.

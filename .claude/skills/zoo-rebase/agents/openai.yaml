@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Rebase"
+  short_description: "Rebase and validate Zoo closeout"
+  default_prompt: "Use $zoo-rebase to rebase a completed Zoo workflow and report push safety."
+policy:
+  allow_implicit_invocation: false

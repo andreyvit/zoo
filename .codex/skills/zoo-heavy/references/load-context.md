@@ -15,9 +15,10 @@ Before loading anything else, confirm that you are in delegated single-step mode
 ## Base Context (all subagents)
 
 1. Call `mcp__bureau__current_task` to get the current task slug, reports directory, and report filenames.
-2. Open `spec.md` and identify the active `(next)` subtask.
-3. Read relevant `User Input`, `Spec`, `Open product and strategic questions`, `Execution memory`, and `Subtasks` entries.
-4. Read recent report files needed for your step scope using the report filenames returned by `mcp__bureau__current_task`.
+2. Read `.zoo/zoo.md` if it exists.
+3. Open `spec.md` and identify the active `(next)` subtask.
+4. Read relevant `User Input`, `Spec`, `Open product and strategic questions`, `Execution memory`, and `Subtasks` entries.
+5. Read recent report files needed for your step scope using the report filenames returned by `mcp__bureau__current_task`.
 
 ## Tactical Context (execution steps only)
 

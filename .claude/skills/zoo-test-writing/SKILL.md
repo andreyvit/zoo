@@ -5,6 +5,8 @@ description: "Write or update tests that define expected behavior for a Zoo acti
 
 # Zoo Test Writing
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when writing or updating tests for a Zoo active subtask.
 
 Goal: create robust tests that define expected behavior before implementation.
@@ -27,3 +29,12 @@ Read and follow `.zoo/testing.md` if it exists.
 - For browser-impact subtasks, define the browser verification intent: impacted flows, expected assertions, and required testability hooks/selectors.
 - For dropdown/popover/disclosure/select behavior, cover open, dismiss, select, submit, and persist as applicable.
 - Report testability gaps in the spec or plan immediately.
+
+## Report Handoff
+
+Include `Final-state validation` in the test report:
+
+- commands run after your last file change in this step
+- result on the exact state you left: `passed`, `failed`, `expected failing-first failure`, or `not run`
+- whether any file changed after those commands
+- if not passed on the state you left, the exact command the implementer or orchestrator should run later

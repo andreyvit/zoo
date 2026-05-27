@@ -16,6 +16,7 @@ Rules:
 - For CSV/file generation changes, produce focused example generated files under `.tasks/<task>/evidence/`.
 - For CSV/file importing changes, include a focused example input file under `.tasks/<task>/evidence/`.
 - In your `impl` report, include `Evidence produced` with pointers/artifact paths and one line per item saying what it proves.
+- In your `impl` report, include `Dependency changes`: added/removed/updated dependencies, version or dependency-set changes, code changes in modifiable dependency checkouts, or `none`, with rationale.
 - Prefer pointers to changed code files (`path[:line]`).
 - Do not copy source/test/docs files into `.tasks/<task>/evidence/`; use that folder only for generated artifacts.
 """

@@ -1,6 +1,6 @@
 interface:
   display_name: "Zoo Refactoring"
-  short_description: "Route Zoo cross-cutting changes"
-  default_prompt: "Use $zoo-refactoring to classify and route a Zoo cross-cutting change."
+  short_description: "Route Zoo refactoring scope"
+  default_prompt: "Use $zoo-refactoring to classify and route a Zoo refactoring or scope-expanding change."
 policy:
   allow_implicit_invocation: false

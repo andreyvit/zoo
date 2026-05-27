@@ -94,6 +94,14 @@ Uber reviews run after a regular review passes, and invoke multiple reviewer sub
 
 You can invoke the Zoo Uber Review skill separately, similar to a native `/review` command. It won't start a review-and-fix loop, however; for that, simply invoke Zoo Zero.
 
+### Zoo Rebase
+
+New in Zoo 2.3, after finishing, Zoo workflows will execute Zoo rebase, which will pull and rebase on top of latest code, resolve conflicts, and rerun tests if anything might have changed.
+
+### Zoo Push
+
+New in Zoo 2.3, you can manually run Zoo Push skill which runs Zoo Rebase and pushes changes after, repeating rebase until successful.
+
 ### Zoo Ensure Safe Deploy
 
 New in Zoo 2.3, if you have tokens to spare, run Zoo Ensure Safe Deploy inside `/goal` (Codex) or `/loop` (Claude) to have the model do its very best to find any obstacles to safe deployment.
@@ -129,7 +137,7 @@ Subagent definitions are materially different, though; we keep them short to sim
 
 ## Changelog
 
-* Zoo 2.3 re-adds Claude support, and adds proposals, after-task reports (Zoo Report skill invoked automatically when finishing tasks) and Zoo Ensure Safe Deploy skill (for manual invocation under `/goal` or `/loop`)
+* Zoo 2.3 adds Claude Code, proposals, final reports (Zoo Report skill invoked automatically when finishing tasks), Zoo Rebase, Zoo Push, and Zoo Ensure Safe Deploy skill (for manual invocation under `/goal` or `/loop`)
 * Zoo 2.2 adds Uber Review to all Zoo flows.
 * Zoo 2.1 refines Codex setup for GPT 5.5-xhigh, adds Zoo Lite and Zoo Zero workflows to reflect the preferred speed/accuracy balance of the smarter models, and is the first public release of Zoo 2.
 * Zoo 2.0 is a reimagining of Zoo for Codex and the smarter GPT 5.4+ models. Introduces a spec file.

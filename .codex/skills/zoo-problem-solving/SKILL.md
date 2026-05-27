@@ -5,6 +5,8 @@ description: "Investigate Zoo workflow blockers and root causes through focused 
 
 # Zoo Problem Solving
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when a Zoo workflow is blocked or repeated attempts are not making progress.
 
 Goal: unblock work by finding root causes through methodical research and debugging.

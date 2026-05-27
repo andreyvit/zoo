@@ -5,6 +5,8 @@ description: "Review Zoo Workflow specs and active-subtask implementation plans 
 
 # Zoo Plan Review
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when reviewing a Zoo Workflow spec and active-subtask implementation plan.
 
 Goal: catch weak implementation plans and material spec gaps before coding starts.
@@ -26,8 +28,13 @@ Read and follow `.zoo/planning.md` and `.zoo/planreview.md` if exists.
 - Require an execution trace for behavior changes: entry points, key conditions, and dependent code paths.
 - Require pattern discovery before new mechanisms. Flag new enum values, APIs, helpers, UI mechanisms, or transient model fields that duplicate an existing mechanism.
 - Challenge workarounds around first-party dependencies and shared first-party packages; require comparison against fixing the dependency.
-- Use `zoo-refactoring` when a finding needs changes outside the active plan. It routes consequential cross-cutting changes to proposals, broad mundane refactors to separate subtasks/commits, and small low-pollution edits into the current task.
+- Check that the plan uses existing patterns when they fit, improves shared abstractions when they are insufficient but fixable, and invents new abstractions only when existing options are inadequate.
+- Use `zoo-refactoring` when a finding needs changes outside the active plan, would expand scope, or would make the touched path diverge from similar code. It routes consequential cross-cutting or local-divergence changes to proposals, broad mundane refactors to separate subtasks/commits, and small low-pollution edits into the current task.
 - When you write a proposal, mention its path and the finding it handles in the review report. If you cannot create proposal files, include the draft proposal entry for the orchestrator. Put separate-subtask outcomes in a `Refactoring request` section instead of editing specs, subtasks, or code.
+- Before requiring complex changes in the active task, ask whether they were explicitly requested, naturally expected, technically blocking, or the only reasonable path. If the answer is no, require a proposal instead of scope expansion.
+- If the task follows an existing common framework and a security, debuggability, modularity, or simplicity gap would require replacing that framework or shared plumbing, prefer a project-wide proposal unless the current task cannot make useful progress without it.
+- Flag local refactors that make one touched path cleaner but less consistent with similar code still using the shared pattern. Require a project-wide proposal for the better pattern and a simple consistent current-task plan.
+- Do not let required changes disappear into "out of scope." Proposal findings must explain why the change is desired, what it improves, and what alternatives exist.
 - Preserve domain type distinctions. Do not approve cross-type fallback behavior unless the user or spec explicitly calls for it.
 - Check that discovered facts are validated against production correctness, not only against expected test output.
 - Flag scope creep, missing acceptance coverage, layering violations, backwards compatibility risks, data/security risks, and hidden coupling.

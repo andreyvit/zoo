@@ -15,6 +15,11 @@
 - For settings UI, flag hidden `UICtx` extras, prop-specific callbacks, duplicated raw string-key reads, and register-wrapper/sentinel patterns.
 - New settings should update `TenantSettings`, `fireback/shop-settings-common.go`, and relevant test configuration.
 
+## Public APIs and Hooks
+
+- Adding optional JSON properties to public types is compatible and explicitly allowed by the API contract. This includes hook input payloads we send to external endpoints.
+- Do not flag an additive public property as a deployment blocker just because an external receiver might reject unknown fields. Focus review on removals, renames, required-field changes, enum semantics, meaning changes, payload growth, and sensitive data exposure.
+
 ## UI, Tests, Docs
 
 - `forms.Select` options belong in enum files; see `_ai/enums.md`.

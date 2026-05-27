@@ -5,6 +5,8 @@ description: Use when updating, tuning, debugging, or aligning Zoo workflow guid
 
 # Zoo HR
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Improve Zoo behavior by fixing the underlying guidance problem, not by piling on prompt band-aids.
 
 ## Workflow

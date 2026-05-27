@@ -5,6 +5,8 @@ description: "Implement the smallest correct code change for an approved Zoo act
 
 # Zoo Code Implementation
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when implementing an approved Zoo active-subtask plan.
 
 Goal: deliver the smallest correct change that passes tests and respects architecture.
@@ -22,6 +24,8 @@ Read and follow `.zoo/coding.md` and `.zoo/testing.md` if exists.
 - Run or inspect failing tests before changing behavior. Make tests pass without weakening their intent.
 - Preserve layering and context-passing rules.
 - If the plan or spec conflicts with code reality, stop and surface the conflict.
+- Track dependency changes carefully: added/removed/updated dependencies, dependency version or set changes, and code changes in modifiable dependency checkouts. Keep the rationale tied to the implementation choice.
+- After the last file change, run the relevant validation when feasible. If you cannot, report exactly why and which command the orchestrator should run before review closeout.
 
 ## Design Guardrails
 
@@ -31,3 +35,20 @@ Read and follow `.zoo/coding.md` and `.zoo/testing.md` if exists.
 - When moving behavior, remove the old redundant path unless the plan explicitly requires both paths.
 - For browser-impact subtasks, add stable and minimal testability hooks/selectors when existing semantics are insufficient.
 - Prefer existing utilities, helpers, and local patterns over new abstractions.
+
+## Report Handoff
+
+Include `Dependency changes` in the implementation report:
+
+- added, removed, or updated dependencies
+- dependency version or dependency-set changes
+- code changes in modifiable dependency checkouts
+- rationale for each change
+- `none` when there were no dependency changes
+
+Include `Final-state validation` in the implementation report:
+
+- commands run after your last file change
+- result on the exact state you left: `passed`, `failed`, or `not run`
+- whether any file changed after those commands
+- if validation did not pass on the state you left, the exact command the orchestrator should run or the failure to route to fixes

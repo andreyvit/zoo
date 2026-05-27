@@ -5,6 +5,8 @@ description: "Verify browser-visible Zoo behavior and capture focused UI evidenc
 
 # Zoo Browser Verification
 
+Read and follow `.zoo/zoo.md` if it exists.
+
 Use this when verifying browser-impact Zoo subtasks.
 
 Goal: prove browser-visible behavior works and collect actionable UI evidence.
@@ -27,3 +29,12 @@ Read and follow `.zoo/browser.md` if it exists.
 - Record important browser-testing learnings immediately in the relevant durable notes before continuing; browser sessions can be interrupted or compacted, and exact recovery steps are easy to lose.
 - Keep artifacts focused and named clearly.
 - If verification cannot be completed, stop, mark the result failed, and explain exactly what blocked the flow and what you tried.
+
+## Report Handoff
+
+Include `Final-state validation` in the browser-verification report:
+
+- browser checks run against the current implemented state
+- result on that exact state: `passed`, `failed`, or `not run`
+- whether any repo file changed after those checks
+- if browser validation did not pass, the exact flow or command the orchestrator should rerun after fixes

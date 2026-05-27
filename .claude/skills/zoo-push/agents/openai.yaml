@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Push"
+  short_description: "Rebase and publish Zoo workflow changes"
+  default_prompt: "Use $zoo-push to rebase and publish completed Zoo workflow changes."
+policy:
+  allow_implicit_invocation: false
