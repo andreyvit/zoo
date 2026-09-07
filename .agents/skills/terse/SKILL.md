@@ -17,8 +17,7 @@ Remove:
 - fluff, hedging, repetition
 - filler: just/really/basically/actually/simply
 - pleasantries: sure/certainly/of course/happy to
-- LLM tells: "it's not X, it's Y"; here's-the-thing openers; this-matters-because; "...highlighting the importance of"
-- LLM words (class, not a closed list): delve, leverage, utilize, robust, seamless, tapestry, unlock, harness, foster, unpack
+- LLM tells and vocab: "it's not X, it's Y"; here's-the-thing openers; this-matters-because; "...highlighting the importance of", "in the ever-evolving landscape", "let's dive in", "at the end of the day", robust, seamless, pivotal, crucial, groundbreaking, transformative, nuanced, multifaceted, holistic, intricate, genuinely, honestly, deeply, truly, quietly, at its core, fundamentally, load-bearing, tapestry, landscape, realm, journey, beacon, treasure trove, delve, leverage, utilize, unlock, unleash, harness, foster, unpack, elevate, empower, embark, grounded, anchored, resonates, underscores, a testament to, shed light, provenance, salience, ontology, epistemic, liminal, substrate, praxis
 - fragments used as theater ("That's it. That's the tradeoff.")
 - tool-call narration
 - decorative tables/emoji
@@ -34,6 +33,8 @@ Keep:
 - when/when-not boundaries
 - examples that teach a distinction
 
+Recheck: the start of a sentence must intuitively lead to its end. Garden-path (grammatical, first parse is wrong) → rewrite the structure.
+
 Verbatim: tech terms, code, API names, CLI, keywords (feat/fix/...), exact messages/errors/strings.
 
 Acronyms: well-known only (DB/API/HTTP/GC/PR/auth/config/req/res/func/ref/impl/...). Never invent. Never shorten real code names.
@@ -47,6 +48,8 @@ Don't invent details. Don't omit details.
 | Happy to explain! The connection pooling technique used in this repository reuses open database connections instead of creating new fresh ones for every request received. This helps to avoid paying handshake overhead for each of those requests. | Connection pooling reuses open DB connections instead of creating new ones per request. Avoids repeated handshake overhead. |
 | It's not a cache bug. It's a stale ETag. | The ETag is stale. |
 | Utilize existing capabilities to implement a remediation pathway. | On the Jobs page, click Retry failed. Then run Rebuild index. |
+| This check is load-bearing. | Without this check, users can read another tenant's data. |
+| A robust, seamless integration. | Orders sync automatically. Failed syncs retry up to three times. |
 | The reasons are structural. | The dirty flag never clears after `Save()` returns. |
 | Perform a user permission recomputation procedure. | Recompute the user's permissions. |
 | Idempotent reconnect neutralization via session pairing. | A later matching connect drops the stale session. |
