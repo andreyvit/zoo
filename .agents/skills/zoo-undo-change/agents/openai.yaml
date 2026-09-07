@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Undo Change"
+  short_description: "Undo a completed change to exact prior code"
+  default_prompt: "Use $zoo-undo-change to remove the completed change back to the exact prior code."
+policy:
+  allow_implicit_invocation: false

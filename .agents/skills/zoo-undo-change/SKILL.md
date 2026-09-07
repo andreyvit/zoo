@@ -1,0 +1,10 @@
+---
+name: zoo-undo-change
+description: "Undo an already completed change back to the exact prior code. Use only when explicitly asked to remove, undo, or revert a completed change."
+---
+
+Follow `.zoo/zoo.md` if exists.
+
+When the user asks to remove or undo an already completed change.
+
+Remove unwanted changes such that when squashed with the prior unwanted change, the result is no diff (or only a diff of desirable remaining changes). Go back to the exact prior code from before the unwanted diff, not leaving dangling accidental changes.
