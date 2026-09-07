@@ -6,6 +6,7 @@
 - explain the question and context in detail
 - ask unrelated questions together; for related questions, ask next batch after prior answers
 - decisions and answers are not stage approval
+- approval options: Approve, Uber-review, Revise; if Revise or user refuses to answer, stop Ask User and finish turn, wait for request.
 
 Stage 1 — high-level (`status: building high-level plan`):
 - fill How it works, Scope, High-level plan, Decisions as needed

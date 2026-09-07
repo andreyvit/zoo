@@ -14,7 +14,7 @@ status: building high-level plan
 
 ## How it works
 
-<Very high level overview of our technical approach, dev-facing explanation. Go top-down: concept changes, data flows, code flows, edge cases, domain model, synthetic objects/abstractions, extended existing abstractions, and rationale. Make it skimmable, from high-level to lower-level details. Include recorded decisions when relevant. Highlight controversial, counter-intuitive, or unusual choices. Keep small changes simple; use subsections for larger changes.>
+<Very high level overview of our technical approach, dev-facing explanation, the kind Joel Spolsky would give to Bill Gates, simple for small changes, high-level walkthrough for big changes. No subsections, use paragraphs, make skimmable, from highest-level to lower-level details. Highlight controversial, counter-intuitive, or unusual choices.>
 
 ## Scope
 

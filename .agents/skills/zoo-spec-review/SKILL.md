@@ -11,7 +11,7 @@ Stage:
 - `building high-level plan`: review User request, What happened, How it works, Scope, High-level plan, Decisions. Do not demand Low-level plan or Subtasks.
 - `high-level plan approved, building low-level plan` or later: also review Low-level plan and Subtasks. Check they match the approved high-level plan. Do not silently rewrite How it works, Scope, or High-level plan.
 
-Questions: built-ins below, then `.zoo/planreview.md` if it exists (skip any that restate a built-in). Omit `(low-level stage only)` questions at the high-level stage. Renumber continuously. Write the list to a temp markdown file outside the repo per `zoo-spec-review/references/questions-file.md`; put that path in the reviewer prompt.
+Questions: from `.zoo/planreview.md` if exists, plus generate 5-10 spec-specific or prompt-specific questions (focus on highest risk/uncertainty/complexity areas), plus builtins below. Merge dups. Omit `(low-level stage only)` questions at the high-level stage. Renumber continuously. Write the list to a temp markdown file outside the repo per `zoo-spec-review/references/questions-file.md`; put that path in the reviewer prompt.
 
 Built-in questions:
 

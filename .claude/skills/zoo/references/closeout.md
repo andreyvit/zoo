@@ -16,7 +16,7 @@ Closeout:
 - Follow `.zoo/task-finish.md` if exists.
 - Review references/task-file-template.md for any section/subsection dropped from task file, and add it back
 - Verify `Pending suggestions` is empty; every item moved to a subtask, Decisions, or a proposal
-- Reconsider and clean How it works, Scope, Report, High-level plan, Low-level plan, and each subtask's technical spec
+- Reconsider and clean How it works, Scope, Report, High-level plan, Low-level plan, and each subtask's technical spec; Report MUST have screenshots as Markdown image refs visible in Markdown preview (images remain in uncommitted evidence dir)
 - Set `status: done`; never commit task file.
 - Unless overridden, run zoo-rebase and follow routing if not clean.
 
