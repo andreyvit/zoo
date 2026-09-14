@@ -10,4 +10,4 @@ Complete a partial closeout:
 - if an accepted item is a significant high-level or scope change, say so; accepting a Code change is not high-level approval
 - accepted Code changes, and accepted Scope expansion / Spec improvements that need work, become subtasks ready to run; start them; do not ask a second approval
 
-Resume remaining subtasks. Run final closeout only when no incomplete subtasks remain and Pending suggestions is empty.
+Resume remaining subtasks. Run final closeout only when no incomplete subtasks remain and Pending suggestions is empty. If the spec has `uberreviews: true` and there is no Final uber-review log yet, run zoo-final-uberreview once; its findings become suggestions and accepted items become subtasks. Do not auto-rerun after those subtasks.

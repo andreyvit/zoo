@@ -43,6 +43,8 @@ Status (never weaker than the file already claims):
 
 Do not fill empty Low-level plan or Subtasks just to look complete. Placeholders only.
 
+Keep extra YAML frontmatter keys (e.g. `uberreviews: true`). Do not add `uberreviews` unless the spec already had it or the user asked.
+
 Do not rewrite product/technical substance. Rename and place.
 
 Append Log. Do not rewrite Log history. Do not commit.

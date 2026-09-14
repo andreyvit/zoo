@@ -1,6 +1,6 @@
 ---
 name: zoo-ensure-safe-deploy
-description: "Prolonged adversarial production-failure analysis for unpushed commits or user-scoped changes. Explicit invocation only. Find failures missed by development checks and reviews before deployment."
+description: "Prolonged adversarial production-failure analysis for unpushed commits or user-scoped changes. Explicit invocation, or via zoo-final-uberreview. Find failures missed by development checks and reviews before deployment."
 ---
 
 Find every plausible way scoped changes could fail in production. Treat misses as catastrophic. Spend exceptional time/tokens; optimize for assurance, not a quick verdict.
@@ -21,4 +21,6 @@ Method:
 
 Stop only after repeated independent passes following the last discovery find no new credible scenario and each material scenario is ruled out, proven unsafe, or unresolved after exhausting read-only evidence. Otherwise stop only for user direction, irreducible scope ambiguity, or total access/authority block.
 
-Report scope/base/deploy model; `unsafe`, `not proven safe`, or `safe to deploy`; scenarios ranked by severity/plausibility with mechanics, affected population, evidence, confidence, and repro commands; ruled-out scenarios; residual unknowns; and rollback/recovery/observability gaps. Use `safe to deploy` only with no credible material scenario unresolved and evidence for every material deployment assumption. Never substitute passing checks or "looks good."
+After the finding set is stable, consider whether it shows a deeper spec or approach flaw. Only if that deeper flaw is confirmed, propose an optional deeper remedy (improve the spec, redo part of the work, or restart from scratch with a modified approach) and pair it with a narrower alternative: one narrow, or one narrowest plus one narrower. User chooses width. Related failures that share a missing invariant are one cluster. Ordinary local bugs get a local recommendation only — do not invent a wider rewrite.
+
+Report scope/base/deploy model; `unsafe`, `not proven safe`, or `safe to deploy`; scenarios ranked by severity/plausibility with mechanics, affected population, evidence, confidence, and repro commands; ruled-out scenarios; residual unknowns; rollback/recovery/observability gaps; recommendation per finding; deeper option only when a deeper flaw is confirmed. Use `safe to deploy` only with no credible material scenario unresolved and evidence for every material deployment assumption. Never substitute passing checks or "looks good."

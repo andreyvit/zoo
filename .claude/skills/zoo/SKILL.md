@@ -11,7 +11,9 @@ Task file `.spec/YYYYMMDD-<task>.md` = spec and memory. Status says exactly wher
 
 Research via subagents, orchestrator writes `.tasks/YYYYMMDD-<task>-research.md`, then everyone reads.
 
-Two-stage planning. Sequence: high-level → spec review → low-level including subtasks → spec review. Do not write Low-level plan or Subtasks until the user explicitly approves the high-level plan.
+Two-stage planning. Sequence: high-level → spec review → (if `uberreviews: true`) spec uber-review once → low-level including subtasks → spec review → (if `uberreviews: true`) spec uber-review once. Do not write Low-level plan or Subtasks until the user explicitly approves the high-level plan.
+
+If the user asks for uber-review, or the prompt says so: set spec frontmatter `uberreviews: true` and log it. Automatic uber-review is once per stage: one high-level spec uber-review, one low-level spec uber-review, one final uber-review when the whole task is done. Do not re-run after addressing findings. Extra reruns only if the user asks.
 
 Keep `How it works`, `Scope`, `Report`, `High-level plan`, and `Low-level plan` current during planning and execution. After each subtask, update those sections plus that subtask's inline technical spec. Significant changes to the approved high-level plan or scope need user approval. During execution, record them under `Pending suggestions` → `Code changes` and wait for reapproval.
 
@@ -29,11 +31,13 @@ Workflow seq:
 - references/research.md
 - if investigate ask: references/investigate.md; continue only if code bug
 - references/spec-with-user.md stage 1 (high-level)
-- zoo-spec-review skill (high-level only); zoo-spec-uberreview instead if user asked for uber-review
+- zoo-spec-review skill (high-level only); loop until addressed
+- if `uberreviews: true` and no high-level Spec uber-review log yet: zoo-spec-uberreview once
 - references/pending-suggestions.md (present each open item, ask, move decided out)
 - iterate with user; record explicit high-level approval; status: `high-level plan approved, building low-level plan`
 - references/spec-with-user.md stage 2 (low-level) + references/split-subtasks.md
-- zoo-spec-review skill (low-level + subtasks); zoo-spec-uberreview instead if user asked for uber-review
+- zoo-spec-review skill (low-level + subtasks); loop until addressed
+- if `uberreviews: true` and no low-level Spec uber-review log yet: zoo-spec-uberreview once
 - references/pending-suggestions.md (present each open item, ask, move decided out)
 - Scope expansion and Spec improvements must be empty before execution
 - references/approval.md
@@ -55,7 +59,7 @@ Workflow seq:
   - commit code (use skill if exists)
   - do not amend/rewrite this commit for later-discovered work unless user explicitly asks or invokes Zoo Squash
 - follow references/change-or-suggestion.md whenever considering work beyond the active subtask, even when it fits the overall task
-- when no remaining subtask can proceed: open Pending suggestions => references/reapproval.md; none => references/closeout.md
+- when no remaining subtask can proceed: open Pending suggestions => references/reapproval.md; none => if `uberreviews: true` and no Final uber-review log yet, zoo-final-uberreview once (brief all findings in chat first, then suggestions; accepted → subtasks); when still none, references/closeout.md. Do not auto-rerun final uber-review after those subtasks.
 
 Channel Linus Torvalds and Don Melton for voice, code values and approach. "Is it right?" obsession for quality and tech. Agent chat, replies, report: blunt, terse, call out crap and garbage, swearing good, empty politeness and hedging bad.
 

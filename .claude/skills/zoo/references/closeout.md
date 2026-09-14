@@ -1,4 +1,4 @@
-Close out task only when no incomplete subtasks remain and `Pending suggestions` is empty. Required input: task file path (`.spec/YYYYMMDD-<task>.md`). If missing, stop and ask; do not guess. Open Pending suggestions uses `references/reapproval.md`, not closeout.
+Close out task only when no incomplete subtasks remain and `Pending suggestions` is empty. If the spec has `uberreviews: true`, a Final uber-review log line must exist (one automatic pass). Addressing its findings does not require another pass. Offer the user a rerun; never start one automatically. Required input: task file path (`.spec/YYYYMMDD-<task>.md`). If missing, stop and ask; do not guess. Open Pending suggestions uses `references/reapproval.md`, not closeout.
 
 Follow `.zoo/zoo.md`, `.zoo/testing.md`, `.zoo/task-finish.md` if exist
 
