@@ -28,6 +28,7 @@ fi
 
 managed_skill_names=(zoo terse linus)
 managed_skill_prefixes=(zoo)
+managed_agent_prefixes=(zoo)
 
 copy_named_children() {
   local source_dir="$1"
@@ -66,7 +67,22 @@ remove_managed_skills() {
   done
 
   for prefix in "${managed_skill_prefixes[@]}"; do
-    find "$target_dir" -mindepth 1 -maxdepth 1 -name "$prefix-*" -exec rm -rf {} +
+    find "$target_dir/" -mindepth 1 -maxdepth 1 -name "$prefix-*" -exec rm -rf {} +
+  done
+}
+
+# remove_managed_agents drops agents upstream no longer ships (e.g. retired
+# zoo-check-*); copying alone would leave them registered in the target.
+remove_managed_agents() {
+  local target_dir="$1"
+  local prefix
+
+  if [[ ! -d "$target_dir" ]]; then
+    return 0
+  fi
+
+  for prefix in "${managed_agent_prefixes[@]}"; do
+    find "$target_dir/" -mindepth 1 -maxdepth 1 -name "$prefix-*" -exec rm -rf {} +
   done
 }
 
@@ -105,8 +121,10 @@ copy_managed_skills() {
 
 copy_managed_skills "$source_abs/.agents/skills" "$target_abs/.agents/skills" ".agents skills"
 remove_managed_skills "$target_abs/.codex/skills"
+remove_managed_agents "$target_abs/.codex/agents"
 copy_named_children "$source_abs/.codex/agents" "$target_abs/.codex/agents" ".codex agents"
 copy_managed_skills "$source_abs/.claude/skills" "$target_abs/.claude/skills" ".claude skills"
+remove_managed_agents "$target_abs/.claude/agents"
 copy_named_children "$source_abs/.claude/agents" "$target_abs/.claude/agents" ".claude agents"
 
 echo "Installed. Now run Zoo Init from that project."
