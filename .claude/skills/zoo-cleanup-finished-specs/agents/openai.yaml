@@ -1,4 +1,0 @@
-interface:
-  display_name: "Zoo Cleanup Finished Specs"
-  short_description: "Archive completed specs and resolved proposals"
-  default_prompt: "Use $zoo-cleanup-finished-specs to archive finished .spec files and fully implemented or rejected proposals."

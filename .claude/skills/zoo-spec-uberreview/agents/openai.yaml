@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Spec Uber-review"
-  short_description: "Cross-agent spec review"
-  default_prompt: "Use $zoo-spec-uberreview to review the current spec in other agent CLIs and combine their findings."
-policy:
-  allow_implicit_invocation: false

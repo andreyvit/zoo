@@ -130,22 +130,25 @@ sync_optional_project_skills() {
   fi
 }
 
+# Skills are shared regardless of which harness's agents are being updated.
+if [[ "$update_codex" == true || "$update_claude" == true ]]; then
+  require_dir "$source_agents/skills"
+  mkdir -p "$target_agents"
+  source_agents_abs="$(cd -- "$source_agents/skills" && pwd -P)"
+  target_agents_abs="$(mkdir -p "$target_agents/skills" && cd -- "$target_agents/skills" && pwd -P)"
+  ensure_distinct_dirs "$source_agents_abs" "$target_agents_abs" "skills"
+  sync_optional_project_skills "$source_agents_abs" "$target_agents_abs"
+fi
+
 if [[ "$update_codex" == true ]]; then
   require_dir "$source_codex"
-  require_dir "$source_agents/skills"
   mkdir -p "$target_codex"
-  mkdir -p "$target_agents"
 
   source_codex_abs="$(cd -- "$source_codex" && pwd -P)"
   target_codex_abs="$(cd -- "$target_codex" && pwd -P)"
   ensure_distinct_dirs "$source_codex_abs" "$target_codex_abs" ".codex"
 
-  source_agents_abs="$(cd -- "$source_agents" && pwd -P)"
-  target_agents_abs="$(cd -- "$target_agents" && pwd -P)"
-  ensure_distinct_dirs "$source_agents_abs" "$target_agents_abs" ".agents"
-
   sync_optional_dir "$source_codex_abs/agents" "$target_codex_abs/agents"
-  sync_optional_project_skills "$source_agents_abs/skills" "$target_agents_abs/skills"
   remove_managed_skills "$target_codex_abs/skills"
 fi
 
@@ -159,7 +162,6 @@ if [[ "$update_claude" == true ]]; then
 
   sync_optional_dir "$source_claude_abs/agents" "$target_claude_abs/agents"
   sync_optional_dir "$source_claude_abs/commands" "$target_claude_abs/commands"
-  sync_optional_project_skills "$source_claude_abs/skills" "$target_claude_abs/skills"
 fi
 
 if [[ "$update_zoo" == true ]]; then

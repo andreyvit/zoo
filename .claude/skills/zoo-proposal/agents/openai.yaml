@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Proposal"
-  short_description: "Write durable Zoo proposal files"
-  default_prompt: "Use $zoo-proposal to write an approved durable proposal for future work."
-policy:
-  allow_implicit_invocation: false

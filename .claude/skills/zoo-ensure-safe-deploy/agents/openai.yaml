@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Ensure Safe Deploy"
-  short_description: "Find overlooked production failures"
-  default_prompt: "Use $zoo-ensure-safe-deploy for prolonged adversarial analysis of ways my unpushed commits could break production."
-policy:
-  allow_implicit_invocation: false

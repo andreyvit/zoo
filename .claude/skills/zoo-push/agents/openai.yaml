@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Push"
-  short_description: "Rebase and publish changes"
-  default_prompt: "Use $zoo-push to rebase and publish completed changes."
-policy:
-  allow_implicit_invocation: false

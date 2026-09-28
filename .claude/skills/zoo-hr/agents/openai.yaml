@@ -1,4 +1,0 @@
-interface:
-  display_name: "Zoo HR"
-  short_description: "Improve Zoo guidance"
-  default_prompt: "Use $zoo-hr to update terse Zoo workflow guidance from feedback."

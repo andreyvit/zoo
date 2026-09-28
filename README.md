@@ -68,7 +68,9 @@ These will be generated for your project during the Zoo Init phase of installati
 
 I've published our real-world [`.zoo/*.md`](.zoo/) files, but you definitely should not just blindly copy them.
 
-When installing, we add separate skill copies for Claude (`.claude/skills`) and for Codex (`.agents/skills`). You can use symlinks if you prefer, but we avoid them to make handling Windows checkouts easier 🤮
+Skills live in `.agents/skills`. Installation links `.claude/skills` to it when the Claude directory is absent or the two trees match. If only a Claude skill directory exists, installation moves it to `.agents/skills` first. Different existing trees stay separate and both receive Zoo skills; unrelated project skills are preserved.
+
+To import changes from a project, run `./update.sh /path/to/project codex claude` (add `zoo` to import project guidance). Either `codex` or `claude` imports shared skills from `.agents/skills`, plus that harness's agents and other configuration. The Zoo repository does not keep a `.claude/skills` copy.
 
 ### Running a task
 

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Pause"
-  short_description: "Pause Zoo work"
-  default_prompt: "Use $zoo-pause to pause the running Zoo workflow and leave a resumable handoff."
-policy:
-  allow_implicit_invocation: false

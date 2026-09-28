@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Squash"
-  short_description: "Prepare unpushed commits for push"
-  default_prompt: "Use $zoo-squash to prepare my unpushed commits for pushing."
-policy:
-  allow_implicit_invocation: false

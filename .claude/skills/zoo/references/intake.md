@@ -1,8 +1,0 @@
-- read req and linked tickets
-- pick task file name or use user's
-- init from `references/task-file-template.md`, copy placeholders and subheaders verbatim, keep ALL placeholder instructions for later, but kill <example>s
-- fill in User request
-- if user asked to investigate a bug or client problem: `status: investigating`
-- else `status: building high-level plan`
-- if user asked for uber-review or the prompt says so: frontmatter `uberreviews: true`; log the mark
-- do `.zoo/task-start.md` if exists

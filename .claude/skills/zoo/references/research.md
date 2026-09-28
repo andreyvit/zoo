@@ -1,4 +1,0 @@
-- launch 1–6 parallel zoo-researcher subagents with specific research areas
-- write research file from findings
-- for follow-up research, point agents at existing research file so they return only new info
-- quote enough code that later steps avoid rereading most involved files

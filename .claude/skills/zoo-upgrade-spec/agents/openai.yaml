@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Upgrade Spec"
-  short_description: "Upgrade specs to the current Zoo format"
-  default_prompt: "Use $zoo-upgrade-spec to upgrade the current spec to the latest Zoo task-file format without downgrading status."
-policy:
-  allow_implicit_invocation: false

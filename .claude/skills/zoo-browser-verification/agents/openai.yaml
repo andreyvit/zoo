@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Browser Verification"
-  short_description: "Verify browser-visible behavior"
-  default_prompt: "Use $zoo-browser-verification to verify browser-visible behavior."
-policy:
-  allow_implicit_invocation: false

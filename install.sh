@@ -119,11 +119,56 @@ copy_managed_skills() {
   shopt -u nullglob
 }
 
+# Compare before installing: updating one tree first would hide or create differences.
+prepare_shared_skills() {
+  local agents_skills="$target_abs/.agents/skills"
+  local claude_skills="$target_abs/.claude/skills"
+  local skills_dir
+
+  for skills_dir in "$agents_skills" "$claude_skills"; do
+    if [[ -e "$skills_dir" && ! -d "$skills_dir" ]]; then
+      echo "error: '$skills_dir' is not a directory" >&2
+      exit 1
+    fi
+    if [[ -L "$skills_dir" && ! -d "$skills_dir" ]]; then
+      # The standard link may be dangling until we create .agents/skills.
+      if [[ "$skills_dir" != "$claude_skills" || "$(readlink "$skills_dir")" != "../.agents/skills" ]]; then
+        echo "error: dangling skills symlink '$skills_dir'" >&2
+        exit 1
+      fi
+    fi
+  done
+
+  mkdir -p "$target_abs/.agents" "$target_abs/.claude"
+  if [[ ! -e "$agents_skills" && -d "$claude_skills" && ! -L "$claude_skills" ]]; then
+    mv "$claude_skills" "$agents_skills"
+  fi
+  mkdir -p "$agents_skills"
+
+  if [[ -d "$claude_skills" ]]; then
+    if [[ "$(cd -- "$agents_skills" && pwd -P)" == "$(cd -- "$claude_skills" && pwd -P)" ]]; then
+      return
+    fi
+    if diff -qr "$agents_skills" "$claude_skills" >/dev/null; then
+      rm -rf "$claude_skills"
+    else
+      # Preserve distinct project skills; install Zoo into both trees below.
+      return 0
+    fi
+  fi
+  if [[ ! -L "$claude_skills" ]]; then
+    ln -s ../.agents/skills "$claude_skills"
+  fi
+}
+
+prepare_shared_skills
 copy_managed_skills "$source_abs/.agents/skills" "$target_abs/.agents/skills" ".agents skills"
 remove_managed_skills "$target_abs/.codex/skills"
 remove_managed_agents "$target_abs/.codex/agents"
 copy_named_children "$source_abs/.codex/agents" "$target_abs/.codex/agents" ".codex agents"
-copy_managed_skills "$source_abs/.claude/skills" "$target_abs/.claude/skills" ".claude skills"
+if [[ "$(cd -- "$target_abs/.agents/skills" && pwd -P)" != "$(cd -- "$target_abs/.claude/skills" && pwd -P)" ]]; then
+  copy_managed_skills "$source_abs/.agents/skills" "$target_abs/.claude/skills" ".claude skills"
+fi
 remove_managed_agents "$target_abs/.claude/agents"
 copy_named_children "$source_abs/.claude/agents" "$target_abs/.claude/agents" ".claude agents"
 

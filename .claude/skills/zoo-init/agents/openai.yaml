@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Init"
-  short_description: "Research and initialize Zoo repo customization"
-  default_prompt: "Use $zoo-init to research this repository and initialize real repo-local Zoo customization files."
-policy:
-  allow_implicit_invocation: false

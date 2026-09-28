@@ -11,7 +11,6 @@ Read affected:
 - `.zoo/*.md`
 - skill `SKILL.md`, `references/*`, `agents/openai.yaml`, `rationale.md`
 - agents: `.codex/agents/*.toml`, `.claude/agents/*.md`
-- matching `.agents/skills` / `.claude/skills` copies
 
 Put fixes where they belong:
 - repo guidance: docs linked from AGENTS.md/CLAUDE.md
@@ -34,6 +33,6 @@ Style:
 - templates, non-universally-applicable long details in `references/`
 - delete stale/contradictory text
 
-Sync: edit `.agents/skills` first, clone to Claude, edit agents separately.
+Skills live once in `.agents/skills`. Sync changes to `.claude/agents` and `.codex/agents` together.
 
 Validate `agents/openai.yaml`, stale names, deleted workflows, obsolete instructions. Report root cause, files, sync, validation.
