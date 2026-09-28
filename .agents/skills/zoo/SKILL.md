@@ -1,11 +1,11 @@
 ---
 name: zoo
-description: "Lightweight spec-driven workflow: collaborative spec, top-level TDD implementation, tiered parallel review gate, one commit per subtask. Use only when explicitly requested."
+description: "Lightweight spec-driven workflow: collaborative spec, top-level TDD implementation, scripted review gate, one commit per subtask. Use only when explicitly requested."
 ---
 
 # Zoo workflow: spec, research, subtasks, reviews
 
-Follow `.zoo/zoo.md` if exists
+Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Task file `.spec/YYYYMMDD-<task>.md` = spec and memory. Status says exactly where work stopped, e.g. `investigating`, `investigation complete`, `building high-level plan`, `high-level plan approved, building low-level plan`, `executing subtask 2`, `completed subtask 5; awaiting decision on Pending suggestions`. Subtasks in the list are ready to run. Undecided work stays under `Pending suggestions`. Log task-work events as they happen. Do not log Zoo Squash, Zoo Rebase, or Zoo Push mechanics or outcomes; they only dirty a finished spec. Never commit task file without explicit request.
 
@@ -19,7 +19,7 @@ Keep `How it works`, `Scope`, `Report`, `High-level plan`, and `Low-level plan` 
 
 Every change belongs to a subtask. Add a subtask before making changes. Batch a bunch of tiny user-requested updates into one subtask. Otherwise keep subtasks focused.
 
-Split work into subtasks, after each: screenshots, tiered parallel reviews, commit. Put known refactorings and global/cross-cutting mechanisms in separate subtasks/commits. Keep feature subtasks narrow; never silently expand them.
+Split work into subtasks, after each: screenshots, scripted and visual reviews, commit. Put known refactorings and global/cross-cutting mechanisms in separate subtasks/commits. Keep feature subtasks narrow; never silently expand them.
 
 Evidence dir `.tasks/YYYYMMDD-<task>-evidence/`:
 - screenshots: good, real, representative, fully styled, never fabricate or fake, crop to relevant area plus context, enough to verify all UI changes, must show all affected UI in all states, must show all pages mentioned by ticket or user request

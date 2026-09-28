@@ -3,7 +3,7 @@ name: zoo-add
 description: "Record user feedback for the active task without interrupting work. Use only when explicitly asked to add, remember, or handle later."
 ---
 
-Follow `.zoo/zoo.md` if exists.
+Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Preserve feedback without switching steps.
 

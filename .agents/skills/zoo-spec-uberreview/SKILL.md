@@ -3,9 +3,9 @@ name: zoo-spec-uberreview
 description: "Cross-agent spec review: zoo-spec-review plus the same questions in other agents via CLI. After spec review is fully addressed when the spec has uberreviews: true, or when explicitly requested."
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/planning.md`, `.zoo/planreview.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/review.md`, `.zoo/planning.md` and file at `$ZOO_LOCAL_MD` if exists
 
-Load zoo-spec-review skill and follow it in full; its subagent review covers your own harness. Then read `zoo-spec-uberreview/references/invoke-uberreview.md` and run the same prompt in the other harnesses. Do not start impl/full workflow.
+Load zoo-spec-review skill and follow it in full, adding `-uber` to the scout's plan flag; its subagent review covers your own harness. Then read `zoo-spec-uberreview/references/invoke-uberreview.md` and run the same scripted review prompt in the other harnesses. Do not start impl/full workflow.
 
 If the spec is not `uberreviews: true`, set that frontmatter key and log the mark.
 

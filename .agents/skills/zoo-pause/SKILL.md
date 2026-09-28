@@ -3,7 +3,7 @@ name: zoo-pause
 description: "Pause a running Zoo workflow at a safe handoff. Use only when explicitly asked to pause, stop, or leave work resumable."
 ---
 
-Follow `.zoo/zoo.md` if exists.
+Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Stop without wasting in-flight work.
 

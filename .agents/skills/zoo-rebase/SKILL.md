@@ -3,7 +3,7 @@ name: zoo-rebase
 description: Rebase completed changes onto upstream while preserving dirty work, resolve conflicts, rerun validation when incoming changes could affect tests, and decide push safety. Use during Zoo closeout and before Zoo Push.
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/rebase.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/rebase.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Use before final reporting/zoo-push. Uncommitted changes intended for upstream affect only final push safety, never whether rebase runs. For final closeout, read `.zoo/task-finish.md` first; it may skip/replace zoo-rebase.
 

@@ -209,7 +209,7 @@ status: building high-level plan
 
 ## Log
 
-<log everything that happens, one line per event, newest last, written as it happens: research done, What happened filled, classified code bug or not, high-level spec review, pending-suggestion decisions, high-level plan approved, low-level spec review, user go to execute, subtask started/done (commit hash + gate stats), code-change suggestion discovered/resolved, review round failed and why, validation failed, escalation investigated, user steering, decision changed, blocker hit and resolved, mention details>
+<log everything that happens, one line per event, newest last, written as it happens: research done, What happened filled, classified code bug or not, high-level spec review, pending-suggestion decisions, high-level plan approved, low-level spec review, user go to execute, subtask started/done (commit hash + gate result), code-change suggestion discovered/resolved, review round failed and why, validation failed, user steering, decision changed, blocker hit and resolved, mention details>
 
 <example>
 - User request recorded
@@ -225,13 +225,12 @@ status: building high-level plan
 - Subtask 1 “Do this and that” planning done
 - Subtask 1 “Do this and that” coding done
 - Subtask 1 “Do this and that” browser testing done: .tasks/YYYYMMDD-<task>-evidence/001-that.png
-- Subtask 1 “Do this and that” checks failed: foo, fubar
+- Subtask 1 “Do this and that” scripted review failed: foo, fubar
 - Subtask 1 “Do this and that” fixes done
-- Subtask 1 “Do this and that” checks passed
-- Subtask 1 “Do this and that” reviewer flagged issue: <issue description>
+- Subtask 1 “Do this and that” scripted review passed
+- Subtask 1 “Do this and that” visual review flagged issue: <issue description>
 - Subtask 1 “Do this and that” fixes done
-- Subtask 1 “Do this and that” checks passed
-- Subtask 1 “Do this and that” reviewer passed
+- Subtask 1 “Do this and that” visual review passed
 - Subtask 1 “Do this and that” committed: <commit>
 - Code change recorded from subtask 1 review: <one-line finding>
 - Code change accepted as subtask 5; another Code change written as a proposal

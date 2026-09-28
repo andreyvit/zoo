@@ -3,7 +3,7 @@ name: zoo-docs
 description: Update durable documentation for completed Zoo work. Use when a Zoo docs writer or orchestrator should preserve practical learnings, behavior, or public documentation changes.
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/docs.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/docs.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Preserve useful learnings. Do not write commit log.
 

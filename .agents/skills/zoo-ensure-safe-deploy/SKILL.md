@@ -7,13 +7,13 @@ Find every plausible way scoped changes could fail in production. Treat misses a
 
 Default scope: unpushed commits on current branch; use user-specified range/PR/files/ticket when given. Exclude unrelated dirty work unless it affects analysis.
 
-Follow `.zoo/zoo.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/review.md` and file at `$ZOO_LOCAL_MD` if exists
 
-Assume tests, CI, linters, repo/browser checks, and agent/human reviews already passed. Do not rerun/delegate them or change production implementation. Existing results are clues, never safety evidence.
+Assume tests, CI, linters, repo/browser checks, and agent/human reviews already passed. Do not rerun/delegate them or change production implementation. Never run the scout; answer its items only when the caller (zoo-final-uberreview) passes them. Existing results are clues, never safety evidence.
 
 Method:
 
-1. Establish exact scope/base, intended invariants, actual deploy/restart/rollback model, and before/after behavior. Trace changed inputs, outputs, writes, persistent forms, jobs/payloads, readers, caches, and external consumers.
+1. Establish exact scope/base, intended invariants, actual deploy/restart/rollback model, and before/after behavior. Before = what production may already run or store: the deployed revision if known; for the default scope, the pushed codebase (`@{upstream}`, else `origin/master`); else the scope's base. Unpushed intermediate states never ran. Trace changed inputs, outputs, writes, persistent forms, jobs/payloads, readers, caches, and external consumers.
 2. Record each failure hypothesis: preconditions/exposure, deploy phase/trigger sequence, exact mechanism, impact/persistence/detection, rollback/recovery, evidence/confidence/unknowns.
 3. Analyze distinct lenses: legacy/malformed/partial data and unusual tenants/config; interruption, pending work, retry/order/duplication/idempotency/time/concurrency; durable/external compatibility and actual rollout/rollback/failover/rebuild; auth/isolation/privacy/money/load/rate/observability; removed behavior, unchanged consumers, combined rare states, and second-order effects. Search history, migrations, identifiers, payloads, templates, analytics/exports, and production-only paths.
 4. Challenge every safety assumption and dismissal, especially shared implementer/test/reviewer assumptions. Try to disprove both scenarios and dismissals. Re-read the diff after discoveries. Continue after clean passes and confirmed bugs; each new scenario resets saturation.

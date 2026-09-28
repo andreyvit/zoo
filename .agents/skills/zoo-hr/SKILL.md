@@ -3,7 +3,7 @@ name: zoo-hr
 description: Update, trim, or align Zoo workflow guidance from operational feedback. Use when fixing workflow behavior, skill wording, repo-local .zoo guidance, or agent instructions.
 ---
 
-Follow `.zoo/zoo.md` if exists.
+Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Update skills/instructions. Fix root cause, not prompt band-aids.
 
@@ -33,6 +33,6 @@ Style:
 - templates, non-universally-applicable long details in `references/`
 - delete stale/contradictory text
 
-Skills live once in `.agents/skills`. Sync changes to `.claude/agents` and `.codex/agents` together.
+Sync: change `.claude/agents` and `.codex/agents` together.
 
 Validate `agents/openai.yaml`, stale names, deleted workflows, obsolete instructions. Report root cause, files, sync, validation.

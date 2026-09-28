@@ -3,7 +3,7 @@ name: zoo-push
 description: Manually publish completed changes by reading repo push instructions, running Zoo Rebase first, and pushing or following repo PR/trunk workflow only when rebase says safe. Use only when explicitly asked to push, publish, open PR, or run Zoo Push.
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/push.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/push.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Only when user explicitly asks to push/publish.
 

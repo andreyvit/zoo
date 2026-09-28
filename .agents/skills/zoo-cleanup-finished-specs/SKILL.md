@@ -3,7 +3,7 @@ name: zoo-cleanup-finished-specs
 description: Archive completed Zoo spec files and resolved proposal files. Use when cleaning finished `.spec` work, moving completed specs into `archived/`, or moving implemented/rejected proposals into archive while honoring repo-local Zoo path overrides.
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/proposals.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/proposals.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Move finished specs/proposals out of active folders. Do not delete.
 

@@ -3,7 +3,7 @@ name: zoo-proposal
 description: Write durable proposal files for significant future work. Use when user asks for or approves a proposal, or when no active Zoo task file can hold the pending decision.
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/proposals.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/proposals.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Write proposal. Do not implement.
 

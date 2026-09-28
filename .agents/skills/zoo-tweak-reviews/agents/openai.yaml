@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Tweak Reviews"
+  short_description: "Update review setup and scout"
+  default_prompt: "Use $zoo-tweak-reviews to update this repo's Zoo review setup and scout."
+policy:
+  allow_implicit_invocation: false

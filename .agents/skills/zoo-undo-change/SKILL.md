@@ -3,7 +3,7 @@ name: zoo-undo-change
 description: "Undo an already completed change back to the exact prior code. Use only when explicitly asked to remove, undo, or revert a completed change."
 ---
 
-Follow `.zoo/zoo.md` if exists.
+Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
 When the user asks to remove or undo an already completed change.
 

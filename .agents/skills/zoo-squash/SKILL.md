@@ -3,7 +3,7 @@ name: zoo-squash
 description: Prepare unpushed commits for pushing by squashing, formatting a patchset, or rewriting messages. Use only when explicitly asked to zoo-squash, squash, presquash, prepare unpushed commits for pushing, or squash/rewrite the unpushed set. Never invoke implicitly.
 ---
 
-Follow `.zoo/zoo.md` if exists.
+Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Only when user explicitly asks. Load commit skill if exists.
 

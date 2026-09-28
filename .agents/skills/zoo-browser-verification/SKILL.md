@@ -3,7 +3,7 @@ name: zoo-browser-verification
 description: "Verify browser-visible behavior and capture focused UI evidence. Use after implementation for browser-impact work or when explicitly requested."
 ---
 
-Follow `.zoo/zoo.md`, `.zoo/browser.md` if exists.
+Follow `.zoo/zoo.md`, `.zoo/browser.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Prove browser-visible behavior works and collect actionable UI evidence.
 
