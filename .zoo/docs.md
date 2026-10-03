@@ -4,7 +4,7 @@
 - Durable developer/onboarding docs go in `_readme/`.
 - User manual content for the configuration team and partners goes in `_readme/manual/`; omit internal implementation details and code references.
 - Public/client RCAs go in `_readme/rca/`; read that folder's `AGENTS.md` and recent RCAs before writing.
-- Client-specific API guides go in `_clientguides/`; never mention source code or internal configuration names.
+- Client-specific integration guides live only in Notion under [Client API Guides](https://app.notion.com/p/3d623a1fd2e180bd8b3ce76391a85e38); use `api-guide` to read and write them. Keep source code and internal configuration names out of client prose.
 - API docs content lives in `apidocs/`; viewer code lives in `apidocviewer/`.
 
 ## Update Scope

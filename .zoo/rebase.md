@@ -1,3 +1,3 @@
-You may need to run 'go run ./cmd/fireman deps-dropreplace' before doing rebase if rebase fails complaining about local 'go.mod' changes being overwritten.
+If rebase reports that local `go.mod` changes would be overwritten, run `go run ./cmd/fireman deps-dropreplace` and retry. `deps-replace` marks `go.mod` assume-unchanged, so stash may not capture it.
 
-Do NOT rerun fire-check during rebase/push flows.
+Do NOT run the scout during rebase/push flows.

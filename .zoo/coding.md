@@ -29,6 +29,7 @@
 - `bm/` and `bm/m*/` must not use `fire.Context`.
 - `fdb/` may use `fire.Context`.
 - Shared controller-level logic belongs in `fire/core/core*`.
+- A package that cannot import `processing.Processor` (cycle) defines a local interface named `Processor` or `SubsetOfProcessor` (or another name that includes Processor and says subset). The argument is `proc`. Do not name it Host. Example: `corespendchunks.SubsetOfProcessor`.
 - Shared business logic belongs in core, not highest-level business packages.
 - Feature-specific business logic belongs in `fire/business/fire*` or the relevant feature package.
 - Backoffice shared code belongs in `fire/business/backofficecommons/`; individual backoffice features belong in `fire/business/backoffice/bo*/`.

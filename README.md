@@ -1,6 +1,6 @@
 <div align="center">
 
-# Zoo 3.2
+# Zoo 3.3
 
 Reliable AI engineering workflow for complex projects
 for Codex, Claude & Grok.
@@ -58,15 +58,16 @@ Features:
 8. Uses a research file to save tokens on re-researching the codebase.
 9. Infused with pragmatic values of Linus Torvalds and Don Melton.
 
-Zoo 3.2 is the current version of Zoo 3, the lightweight successor to Zoo 2 targeting the smarter models of mid-2026. See my posts for way more context on the idea:
+Zoo 3.3 is the current version of Zoo 3, the lightweight successor to Zoo 2 targeting the smarter models of mid-2026. The big ideas are pretty much done; we're in polishing territory now. See my posts for way more context on the idea:
 
+* [Zoo 3.3 has small tweaks](https://tarantsov.com/zoo-3-3/)
 * [Zoo 3.2 asks better questions](https://tarantsov.com/zoo-3-2/)
 * [Zoo 3.1 fights scope creep and runs on Grok](https://tarantsov.com/zoo-3-1/)
 * [Zoo 3, lean and mean](https://tarantsov.com/zoo-3/)
 * [Meet Zoo 2](https://tarantsov.com/meet-zoo-2/)
 * [All Star Zoo](https://tarantsov.com/all-star-zoo/)
 
-Zoo skills are project-independent, customization is via `.zoo/*.md`:
+Zoo skills are project-independent; customization is via `.zoo/*.md`:
 
 - shared Zoo paths and general instructions go into `.zoo/zoo.md`
 - scout script cli and review rules go into `.zoo/review.md`
@@ -83,10 +84,12 @@ You can also point `$ZOO_LOCAL_MD` at a Markdown file with your personal local i
 
 ## If you're picking an agent for Zoo workflows...
 
-1. Hot take: Grok produces the best day-to-day results by far. Reasonable, down to earth specs, no-drama implementation, just as good at browser use, and SuperGrok Heavy lasts for an entire week of heavy usage (whereas I had to previously juggle three max Codex accounts).
-2. Claude Code + Opus 5.5 is likely second in quality here, especially if you use Codex for uber-reviews.
-3. Codex + GPT 6 Astra is great at implementation and computer use, but its specs still leave much to be desired in terms of readability. It is wickedly smart, though, and best at reviews.
-4. I plan to try DeepSeek and GLM models soon too.
+Opus 5.5, Codex 6 Astra and Grok 4.6 all work great.
+
+* If you use Opus or Grok, you _definitely_ want Codex Astra as your uber-reviewer. It's in a league of its own (when it comes to reviews! It is _not_ the best spec writer and implementer).
+* For your main agent (spec writing and implementation), if you care to get the most bang for your buck, or have as little drama as possible, use Grok 4.6 xhigh. Ignore Grok 4.7.
+* Opus 5.5 works great as the main agent too! I find that Grok 4.6 produces a bit less drama and a bit better specs, but again the new Opus is pretty great.
+* Others just use Astra 6 for everything. That wouldn't be my preference, but it definitely works. You can probably even use Sol 6.1 (as long as you keep Astra as a reviewer), although I got zero experience doing that.
 
 
 ## Quick start
@@ -138,7 +141,7 @@ To add work while a task is running without derailing it, use Zoo Add (`/zoo-add
 ## Advanced use
 
 * Zoo HR: update skills and customize Zoo workflows (instructions under `.zoo`)
-* Zoo Spec Uber-Review: call other installed agents to chime in on the current spec (choose specific agents via prompt or instruction files like `.zoo/review.md` or `$ZOO_LOCAL_MD`; for Spec Uber-Review; I recommend running it in all the agents you have access to — Claude, Codex, Grok, Gemini, GLM, Deep).
+* Zoo Spec Uber-Review: call other installed agents to chime in on the current spec (choose specific agents via prompt or instruction files like `.zoo/review.md` or `$ZOO_LOCAL_MD`; for Spec Uber-Review, I recommend running it in all the agents you have access to — Claude, Codex, Grok, Gemini, GLM, Deep).
 * Zoo Ensure Safe Deploy: final task review that considers the entire changeset focusing on regressions and deployment safety; these days, proven to be the perfect final review approach;
 * Zoo Final Uber-Review: runs `Zoo Ensure Safe Deploy` in uber-review agents (when running outside Codex, I recommend running this in Codex only; when running inside Codex, I recommend using Codex and one other agent); findings become suggestions for your approval.
 * Zoo Tweak Reviews: create or improve the project's scout script — add/migrate/tweak review questions, fix recurring false positives.
@@ -221,21 +224,8 @@ You can ask Zoo to delay certain desirable suggestions by writing a proposal fil
 
 ## Changelog
 
-### Zoo 3.2
-
-* Replaces old tiered check agents with scout-driven scripted reviews, and adds Zoo Tweak Reviews to modify the scouts.
-* Adds Zoo Final Uberreview.
-* Adds personal overrides through `$ZOO_LOCAL_MD`, including uber-review agent selection.
-* Uber-review tweaks: sticky task option; adds OpenCode/Gemini support, updates models, allows retrying failed agents.
-* Improves review recommendations with broader and narrower fixes when a deeper design flaw is confirmed. Compatibility reviews compare against pushed or deployed code rather than intermediate unpushed edits.
-* Centralizes review configuration in `.zoo/review.md` and moves all questions into the scout.
-* Adds Zoo Undo Change for restoring the exact code before an unwanted change.
-* Symlinks `.claude/skills` to `.agents/skills` where possible.
-* Improves terse writing and the “How it works” walkthrough, embeds screenshot references in reports, and preserves extra spec metadata during upgrades.
-
-
-### Earlier versions
-
+* Zoo 3.3 tweaks the spec file format to enable automated monitoring and solve a few issues encountered in practice, and adds OpenCode uber-review command lines for GLM and DeepSeek in addition to Gemini.
+* Zoo 3.2 replaces tiered check agents with scout-driven scripted reviews, adds Zoo Tweak Reviews, Zoo Final Uberreview and Zoo Undo Change, supports personal overrides through `$ZOO_LOCAL_MD`, makes uber-reviews sticky, adds OpenCode/Gemini support and failed-agent retries, improves review recommendations and compatibility checks, centralizes review configuration, shares skills between Claude and Codex, and improves terse writing, spec walkthroughs, screenshots and metadata preservation.
 * Zoo 3.1 splits planning into high-level and low-level, adds cross-agent spec uberreviews, investigates bugs before planning a fix, queues mid-task discoveries/refactorings/bugs to put a stop to uncontrolled scope expansion, and adds Zoo Squash and Zoo Upgrade Spec skills
 * Zoo 3 replaces Zoo Heavy/Lite/Zero with a single lighter workflow, introduces tiered reviews, drops bureau reports (for big token savings), and all steps share a single research file
 * Zoo 2.3 adds Claude Code, proposals, final reports (Zoo Report skill invoked automatically when finishing tasks), Zoo Rebase, Zoo Push, and Zoo Ensure Safe Deploy skill (for manual invocation under `/goal` or `/loop`)

@@ -1,0 +1,3 @@
+- Spec uber-reviews: Claude, Codex, Grok, and (google/gemini-3.8-flash, zai/glm-5.3, deepseek/deepseek-v4-pro, max variant) via OpenCode
+- Final uber-reviews: Codex only
+- Grok Build: on task/subtask start/progress/finish, follow `.zoo/zoo-local-andreyvit-terminal.md`
