@@ -1,9 +1,11 @@
 ---
 name: zoo-upgrade-spec
-description: "Upgrade Zoo spec files to the current task-file format. Use when asked to upgrade, modernize, or reformat a spec, or to bring specs to the latest Zoo template."
+description: "Upgrade Zoo spec files to the current task-file format. Use when asked to upgrade, modernize, or reformat a spec, to bring specs to the latest Zoo template, or when Zoo detects an older spec."
 ---
 
 Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
+
+Standalone chat at boundaries (actual spec path/round): `Zoo upgrade spec start (.spec/example.md) r0`, then `Zoo upgrade spec finished (.spec/example.md) r0` or `Zoo upgrade spec failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
 
 Upgrade spec format only. Do not start the Zoo workflow. Do not implement, review, execute, or change product meaning.
 

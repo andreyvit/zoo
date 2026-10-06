@@ -1,11 +1,15 @@
+Include task path and revision round in PROMPT, with instructions to emit `Zoo review session (<spec path>) rN` as a standalone chat line (unknown round: r?; no task: `(no spec) r?`). Preserve review ownership and historical receipts in compaction summaries; never emit task start/resume/switch receipts.
+
+Pass file paths and the reviewed Git range, not full file contents or diffs; reviewers read them from the repository.
+
 Run the caller's PROMPT in other harness CLIs. Do not start the Zoo workflow. Do not call the current harness's CLI.
 
 Agents:
 1. Identify own harness (Claude Code, Codex, Grok, OpenCode). Never call its CLI.
-2. Agent list, first that applies: list given by the user; uber-review agents named in `$ZOO_LOCAL_MD`; per-user instructions already loaded naming uber-review agents; else autodetect which of `claude`, `codex`, `grok` are in PATH. Drop own harness from the list.
+2. Agent list, first that applies: list given by the user; uber-review agents named in `$ZOO_LOCAL_MD`; per-user instructions already loaded naming uber-review agents; else autodetect which of `claude`, `codex`, `grok` are in PATH. Resolve this list before launching any reviewer. Own harness gets a subagent only if listed; remove it from the CLI list.
 3. macOS fallback when `codex` is not in PATH: `/Applications/ChatGPT.app/Contents/Resources/codex`. If PATH `codex` is a ChatGPT.app symlink, `codex-code-mode-host` must be a sibling symlink or tool calls fail closed.
-4. OpenCode reviewers are opt-in: Gemini, GLM, and DeepSeek only when individually named by the user/instructions. A request for Gemini, GLM or DeepSeek selects that model through OpenCode; it does not add the other OpenCode models. Run each requested model separately and label findings by model.
-5. Nothing left: say so; caller uses own-harness result only.
+4. OpenCode reviewers are opt-in: Gemini, GLM, and DeepSeek only when individually named by the user/instructions.. A request for Gemini, GLM or DeepSeek selects that model through OpenCode; it does not add the other OpenCode models. Run each requested model separately and label findings by model.
+5. No CLI reviewers left: use the listed own-harness subagent only. No selected reviewers: report that; do not add self as a fallback.
 
 Run:
 - Assign PROMPT with single quotes. From the repo root. One-shot prompt mode, yolo permissions, no stored sessions where the CLI supports that. The prompt forbids changes; do not use special review modes (`codex exec review`, `claude ultrareview`). Reviews take minutes: run in background shells, wait, never kill early.

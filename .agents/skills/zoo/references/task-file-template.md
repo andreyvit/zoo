@@ -1,6 +1,12 @@
 ---
+revision_round: 0
+stage: HL
+stage_complete: false
+tickets: []
 status: building high-level plan
 ---
+
+# <Short change title>
 
 <fill in as you go, and fully reconsider and clean up after ending>
 
@@ -14,7 +20,7 @@ status: building high-level plan
 
 ## How it works
 
-<Very high level overview of our technical approach, dev-facing explanation, the kind Joel Spolsky would give to Bill Gates, simple for small changes, high-level walkthrough for big changes. No subsections, use paragraphs, make skimmable, from highest-level to lower-level details. Highlight controversial, counter-intuitive, or unusual choices.>
+<Very high level overview of our technical approach, dev-facing explanation, the kind Joel Spolsky would give to Bill Gates. Keep short: 1–3 introductory paragraphs plus 0–8 bullet points with the most important details. Highlight controversial, counter-intuitive, or unusual choices. Other details belong in High-level plan or Low-level plan.>
 
 ## Scope
 
@@ -69,7 +75,7 @@ status: building high-level plan
 
 ## High-level plan
 
-<update this spec after every subtask, and especially after entire task>
+<Update this spec after every subtask, especially after the entire task. Keep subsections max terse: 0–2 introductory paragraphs, then grouped bullets, up to 7 items per list and 3 nesting levels. Add a Details subsection for details with no other home.>
 
 ### Persisted data changes
 
@@ -91,6 +97,10 @@ status: building high-level plan
 
 <all changes to our contracts/interfaces/endpoints used across separately deployed parts/units/servers/environments of our own system>
 
+### Backwards-incompatible changes
+
+<contracts or compatibility guarantees this change breaks: APIs, stored data, integrations, supported clients; affected users/consumers and required migration or coordination. Say none if none.>
+
 ### Dependency changes
 
 <list of all changes outside of this repository, and dependencies added/upgraded, if any>
@@ -111,12 +121,18 @@ status: building high-level plan
 
 <detailed contract of observable behaviors: top-to-bottom behavior, grouped by area, most visible first>
 
+### Functionality regressions
+
+<existing behavior or UX that becomes worse or unavailable; affected users/scenarios, tradeoffs, mitigations, and remaining actions. Say none if none.>
+
 ### Responsibilities
 
 <software architecture -- who does what, who knows what and what details are hidden from whom in new/updated code>
 
 
 ## Low-level plan
+
+<Keep subsections max terse: 0–2 introductory paragraphs, then grouped bullets, up to 7 items per list and 3 nesting levels. Add a Details subsection for details with no other home.>
 
 ### Naming
 
@@ -130,9 +146,13 @@ status: building high-level plan
 
 <all changes to code-level contracts/interfaces within the deployment unit we're working on>
 
+### Performance regressions
+
+<slowdowns or increased resource use versus current behavior; affected workloads, expected/measured impact, mitigations, and remaining actions. Say none if none.>
+
 ### Performance
 
-<deep analysis of performance characteristics of new/updated code -- any suprises, any non-linear behaviors, memory usage, tradeoffs, algorithmic complexity>
+<remaining performance characteristics not covered above: surprises, non-linear behavior, memory usage, tradeoffs, algorithmic complexity>
 
 ### Limits and validations
 

@@ -5,6 +5,8 @@ description: Update durable documentation for completed Zoo work. Use when a Zoo
 
 Follow `.zoo/zoo.md`, `.zoo/docs.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo docs start (.spec/example.md) r0`, then `Zoo docs finished (.spec/example.md) r0` or `Zoo docs failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
 Preserve useful learnings. Do not write commit log.
 
 - Update durable docs, not only the task file.

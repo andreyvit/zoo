@@ -1,4 +1,6 @@
-Route work before implementing it.
+Route work before implementing it. User-requested revisions after spec approval go through zoo-revision; the routing below covers other newly discovered work.
+
+User revision after execution finished: increment `revision_round` once before adding/reopening subtasks, log it, reopen the stage, emit `Zoo revision recorded (.spec/example.md) r1`. Requests during planning/execution and routine review fixes keep the current round.
 
 Protect: cohesive subtasks and commits; user judgment over task, scope, and high-level plan.
 

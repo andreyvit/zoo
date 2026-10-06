@@ -6,7 +6,7 @@ Use after the low-level spec review and after Pending suggestions Scope expansio
 - drop a subtask: remove it
 - reject a subtask: summarize in Decisions
 - later on a subtask: write a proposal
-- remaining subtasks are the work list; start executing
+- remaining subtasks are the work list; set `stage: EX`, `stage_complete: false`; start executing
 - significant How it works / Scope / High-level plan changes need a new high-level approval
 
 do not use Ask tool for this go-ahead. No `Approval:` field on subtasks.

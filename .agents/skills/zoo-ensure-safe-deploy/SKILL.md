@@ -3,11 +3,15 @@ name: zoo-ensure-safe-deploy
 description: "Prolonged adversarial production-failure analysis for unpushed commits or user-scoped changes. Explicit invocation, or via zoo-final-uberreview. Find failures missed by development checks and reviews before deployment."
 ---
 
+Follow `.zoo/zoo.md`, `.zoo/review.md` and file at `$ZOO_LOCAL_MD` if exists
+
+Standalone chat at boundaries (actual spec path/round): `Zoo ensure safe deploy start (.spec/example.md) r0`, then `Zoo ensure safe deploy finished (.spec/example.md) r0` or `Zoo ensure safe deploy failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
+Review `finished` means findings delivered, not resolved; emit before fixes/user decisions.
+
 Find every plausible way scoped changes could fail in production. Treat misses as catastrophic. Spend exceptional time/tokens; optimize for assurance, not a quick verdict.
 
 Default scope: unpushed commits on current branch; use user-specified range/PR/files/ticket when given. Exclude unrelated dirty work unless it affects analysis.
-
-Follow `.zoo/zoo.md`, `.zoo/review.md` and file at `$ZOO_LOCAL_MD` if exists
 
 Assume tests, CI, linters, repo/browser checks, and agent/human reviews already passed. Do not rerun/delegate them or change production implementation. Never run the scout; answer its items only when the caller (zoo-final-uberreview) passes them. Existing results are clues, never safety evidence.
 

@@ -5,6 +5,8 @@ description: Initialize repo-local .zoo customization files for Zoo from real re
 
 Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo init start (.spec/example.md) r0`, then `Zoo init finished (.spec/example.md) r0` or `Zoo init failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
 Create concise repo-local Zoo guidance. No placeholders.
 
 Codex only: before continuing, ensure global Codex config (`$CODEX_HOME/config.toml`, usually `~/.codex/config.toml`) contains `default_mode_request_user_input = true` under `[features]`. Required for `request_user_input` tool to work outside of planning mode. If added during running session and the tool stays unavailable, start a new turn/thread or ask user restart Codex. Bail without this tool available.

@@ -5,6 +5,12 @@ description: Rebase completed changes onto upstream while preserving dirty work,
 
 Follow `.zoo/zoo.md`, `.zoo/rebase.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo rebase start (.spec/example.md) r0`, then `Zoo rebase finished (.spec/example.md) r0` or `Zoo rebase failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
+Use parent-qualified receipts when called from closeout or push; standalone calls use `rebase`. Emit finished only after rebase, required validation, and work-tree restoration succeed; include any remaining push-safety restriction in prose. Push rebase displays PUSH; closeout rebase finishes as FIN. Preserve finished spec metadata.
+
+Follow commit skill if any when creating or rewriting commits during rebase.
+
 Use before final reporting/zoo-push. Uncommitted changes intended for upstream affect only final push safety, never whether rebase runs. For final closeout, read `.zoo/task-finish.md` first; it may skip/replace zoo-rebase.
 
 Ignored task roots (`.tasks/`, `_tasks/`, alternates) are workspace artifacts. Never stage, force-add, commit, or push them.

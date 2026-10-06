@@ -5,6 +5,10 @@ description: "Review task file spec from all angles: flag omissions, fix uncontr
 
 Follow `.zoo/zoo.md`, `.zoo/review.md`, `.zoo/planning.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo spec review start (.spec/example.md) r0: stage=HL`, then `Zoo spec review finished (.spec/example.md) r0: stage=HL` or `Zoo spec review failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
+Review `finished` means findings delivered, not resolved; emit before fixes/user decisions. Use `stage=LL` for low-level review.
+
 Review task file against codebase and research file. Do not start impl/full workflow. Question: "Is it right?"
 
 Stage:
@@ -20,7 +24,7 @@ Merge dups. Renumber continuously. Write the list to a temp markdown file outsid
 
 Run the review in a subagent (general-purpose, read-only), not in the orchestrator. Prompt, with paths filled in:
 
-    Review spec <task file> at stage <stage> against the codebase and research file <research file>. Answer every question in <questions file> following its instructions. Do not modify any file or implement anything; reply with findings only.
+    Emit `Zoo review session (<task file>) r<revision_round>` as a standalone chat line; use r? if unknown. Preserve this review ownership in compaction summaries; historical receipts are not new events. Review spec <task file> at stage <stage> against the codebase and research file <research file>. Answer every question in <questions file> following its instructions. Do not modify any file or implement anything; reply with findings only.
 
 Skip findings listed in `False positive or rejected review findings`. If a finding is a false positive or rejected for this task, add it there.
 
@@ -28,7 +32,7 @@ Act on findings (orchestrator):
 - Verify each finding against the code first. Fix clear uncontroversial mistakes/omissions in the current stage's sections.
 - Material scope or strategy changes: add under `Pending suggestions` → Spec improvements. Extra work the user might want: Scope expansion. Do not apply until the user decides. Orchestrator presents each item per Zoo skill `references/pending-suggestions.md`. If running standalone, present each item, ask what to do, and move decided items out.
 - If orchestrator keeps a flagged non-violation, require reason in `Decisions` or list it under `False positive or rejected review findings`.
-- Ask user for product decisions, important technical decisions, controversial/unclear technical decisions. Use AskUserQuestion if available; otherwise chat. Give concrete options, recommendation first, consequences. Record answers in `Decisions` marked `(USER)`.
+- Ask user for product decisions, important technical decisions, controversial/unclear technical decisions. Use AskUserQuestion if available; otherwise chat. Give concrete options, recommendation first; explain resulting behavior/UX and further actions needed to reach the desired behavior/UX. Record answers in `Decisions` marked `(USER)`.
 - High-level stage: do not drag the user into package, naming, or test detail.
 - Scope extensions: follow Zoo skill `references/change-or-suggestion.md`.
 - Decide mundane judgment calls on spot when not worth user attention.

@@ -1,6 +1,0 @@
-interface:
-  display_name: "Zoo Add"
-  short_description: "Record deferred workflow feedback"
-  default_prompt: "Use $zoo-add to record this feedback for later without interrupting current work."
-policy:
-  allow_implicit_invocation: false

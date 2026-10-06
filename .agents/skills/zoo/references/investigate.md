@@ -6,8 +6,8 @@ Fill `What happened`: bad behavior, mechanism, impact, regression vs always-brok
 
 In chat: full What happened, then the class. Link the task file.
 
-- Code bug → `status: building high-level plan`; continue to spec-with-user stage 1. Do not wait for a second go-ahead.
-- Not a code bug → do not invent a code plan. `status: investigation complete`. Present findings and stop. Wait if they want a mitigation or docs anyway.
+- Code bug → `status: building high-level plan`, `stage: HL`, `stage_complete: false`; continue to spec-with-user stage 1. Do not wait for a second go-ahead.
+- Not a code bug → do not invent a code plan. `status: investigation complete`, `stage: INV`, `stage_complete: true`. Present findings; emit `Zoo task finished (.spec/example.md) r0` for the completed investigation and stop. Wait if they want a mitigation or docs anyway.
 - Unclear → ask; do not guess a plan.
 
 Do not implement from this step. Do not skip What happened.

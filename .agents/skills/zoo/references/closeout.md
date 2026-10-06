@@ -2,6 +2,8 @@ Close out task only when no incomplete subtasks remain and `Pending suggestions`
 
 Follow `.zoo/zoo.md`, `.zoo/testing.md`, `.zoo/task-finish.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Enter `stage: FIN`, `stage_complete: false` before finalization; retain the current revision round.
+
 Final checks:
 
 - Run full repo validation if any changes since last done (normally none)
@@ -17,8 +19,8 @@ Closeout:
 - Review references/task-file-template.md for any section/subsection dropped from task file, and add it back
 - Verify `Pending suggestions` is empty; every item moved to a subtask, Decisions, or a proposal
 - Reconsider and clean How it works, Scope, Report, High-level plan, Low-level plan, and each subtask's technical spec; Report MUST have screenshots as Markdown image refs visible in Markdown preview (images remain in uncommitted evidence dir)
-- Set `status: done`; never commit task file.
-- Unless overridden, run zoo-rebase and follow routing if not clean.
+- Unless overridden, run zoo-rebase with parent `closeout` (chat: `Zoo closeout rebase start (.spec/example.md) r0`, then `Zoo closeout rebase finished (.spec/example.md) r0`; failures use `failed: <reason>` after path/round) and follow routing if not clean.
+- Only after successful required closeout: set `status: done`, `stage: FIN`, `stage_complete: true`; emit `Zoo task finished (.spec/example.md) r0`. On failure keep FIN unfinished and status specific. Never commit task file.
 
 Display final report in chat:
 

@@ -1,0 +1,6 @@
+interface:
+  display_name: "Zoo Revision"
+  short_description: "Run revisions through Zoo subtasks"
+  default_prompt: "Use $zoo-revision to record this revision, update or add subtasks, and continue through the Zoo workflow."
+policy:
+  allow_implicit_invocation: true

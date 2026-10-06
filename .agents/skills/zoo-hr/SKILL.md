@@ -5,6 +5,8 @@ description: Update, trim, or align Zoo workflow guidance from operational feedb
 
 Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo HR start (.spec/example.md) r0`, then `Zoo HR finished (.spec/example.md) r0` or `Zoo HR failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
 Update skills/instructions. Fix root cause, not prompt band-aids.
 
 Read affected:
@@ -28,7 +30,7 @@ Instruction design:
 
 Style:
 - terse to max (zoo-* skills are examples)
-- Zoo skills start with `Follow <file1>, <file2>... if exists`
+- Zoo skills start with `Follow <file1>, <file2>... if exists`, after the header if any. Preserve existing header placement.
 - compact workflow/router text in `SKILL.md`
 - templates, non-universally-applicable long details in `references/`
 - delete stale/contradictory text

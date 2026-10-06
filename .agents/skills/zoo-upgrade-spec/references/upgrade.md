@@ -4,6 +4,8 @@ Find specs:
 - else one obvious non-`done` spec
 - else ask
 
+Add exactly one 2–5-word H1 describing the change; move title dates/tickets/status into their existing prose/metadata homes. Preserve unique text. Preserve existing metadata. If `revision_round` is missing, start at 0; upgrading is not a revision round. Infer missing `stage` and `stage_complete` from status and task history; leave unresolved values absent rather than resetting to planning. Populate `tickets` from task tickets, excluding background references.
+
 Copy template section order and placeholder instructions. Kill `<example>` blocks. Keep all unique existing content.
 
 Heading remaps (by meaning, not a closed list):

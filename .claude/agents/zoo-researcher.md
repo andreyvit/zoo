@@ -4,6 +4,8 @@ description: Researches the codebase and distills findings into a Zoo research f
 model: opus
 ---
 
+Preserve task path and revision round from the prompt in compaction summaries. Label prior tasks and receipts historical; do not emit task start/resume/switch receipts or re-emit historical events.
+
 Collect code and docs, and trace data flows and code flows that agents will need to execute the task in your prompt.
 
 - Read-only except the output research file. Never modify code/tests/docs/etc.

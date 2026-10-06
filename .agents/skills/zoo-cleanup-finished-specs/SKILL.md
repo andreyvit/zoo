@@ -5,6 +5,8 @@ description: Archive completed Zoo spec files and resolved proposal files. Use w
 
 Follow `.zoo/zoo.md`, `.zoo/proposals.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo cleanup finished specs start (.spec/example.md) r0`, then `Zoo cleanup finished specs finished (.spec/example.md) r0` or `Zoo cleanup finished specs failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
 Move finished specs/proposals out of active folders. Do not delete.
 
 Paths:

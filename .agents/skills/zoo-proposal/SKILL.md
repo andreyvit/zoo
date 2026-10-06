@@ -5,6 +5,8 @@ description: Write durable proposal files for significant future work. Use when 
 
 Follow `.zoo/zoo.md`, `.zoo/proposals.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo proposal start (.spec/example.md) r0`, then `Zoo proposal finished (.spec/example.md) r0` or `Zoo proposal failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
 Write proposal. Do not implement.
 
 Filename: `.proposals/YYYYMMDD-slug.md` unless overridden. Copy `references/proposal-template.md`; replace placeholders.

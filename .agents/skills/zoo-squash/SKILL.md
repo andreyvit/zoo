@@ -5,7 +5,13 @@ description: Prepare unpushed commits for pushing by squashing, formatting a pat
 
 Follow `.zoo/zoo.md` and file at `$ZOO_LOCAL_MD` if exists
 
-Only when user explicitly asks. Load commit skill if exists.
+Standalone chat at boundaries (actual spec path/round): `Zoo squash start (.spec/example.md) r0`, then `Zoo squash finished (.spec/example.md) r0` or `Zoo squash failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
+Receipt name follows the chosen action: `squash`, `format patchset`, or `update commit messages`. Resolve the approach before emitting its start. Patchset formatting emits nested `squash` receipts only if commits are squashed.
+
+SQ requires completed squash in this round, all subtasks finished, and no later execution/finalization transition. New rounds invalidate SQ. No squash boolean; keep receipts out of the spec.
+
+Only when user explicitly asks. Follow commit skill if any, including when rewriting commits/messages.
 
 Prepare unpushed commit set for pushing:
 

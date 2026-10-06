@@ -5,6 +5,8 @@ description: "Update the repo's Zoo review setup, including the scout (script th
 
 Follow `.zoo/zoo.md`, `.zoo/review.md` and file at `$ZOO_LOCAL_MD` if exists
 
+Standalone chat at boundaries (actual spec path/round): `Zoo tweak reviews start (.spec/example.md) r0`, then `Zoo tweak reviews finished (.spec/example.md) r0` or `Zoo tweak reviews failed (.spec/example.md) r0: <reason>`. Standalone without a spec: `(no spec) r?`.
+
 Update project's Zoo review setup: `.zoo/review.md` and scout. No scout: create one. Reference design: `references/scout-design.md`, an example for Go; adapt to the repo's language.
 
 While working on scout, skills, or review system:

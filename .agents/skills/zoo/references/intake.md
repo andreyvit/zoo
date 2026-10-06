@@ -1,8 +1,10 @@
 - read req and linked tickets
 - pick task file name or use user's
 - init from `references/task-file-template.md`, copy placeholders and subheaders verbatim, keep ALL placeholder instructions for later, but kill <example>s
+- Set the 2–5-word H1 and metadata per the main Zoo skill; tickets are only this task’s tickets.
+- Emit `Zoo task start (.spec/example.md) r0` once as a standalone chat line, using the chosen spec path.
 - fill in User request
-- if user asked to investigate a bug or client problem: `status: investigating`
+- if user asked to investigate a bug or client problem: `status: investigating`, `stage: INV`, `stage_complete: false`
 - else `status: building high-level plan`
 - if user asked for uber-review or the prompt says so: frontmatter `uberreviews: true`; log the mark
 - do `.zoo/task-start.md` if exists
