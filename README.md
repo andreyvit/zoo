@@ -1,6 +1,6 @@
 <div align="center">
 
-# Zoo 3.3
+# Zoo 3.4
 
 Reliable AI engineering workflow for complex projects
 for Codex, Claude & Grok.
@@ -25,6 +25,7 @@ Principle 2: **Designed for easy reviews.**
 * Builds a series of small commits designed for easy reviews, each explaining what it does, why that was needed, and why the prior state wasn't sufficient. (There's a squash skill to then reformat those into a pushable patchset with coarser-grained commits.)
 * Final report analyzes the change set from multiple angles, including surprises (compared to the initial request) and deployment risks.
 * Final report includes a screenshot of every UI change.
+* Code summaries recognize patterns, fold related changes and omit boilerplate; SURPRISE marks items that might seem controversial or unexpected given the spec. Surprise detection is pre-alpha.
 
 Principle 3: **Collaborative with a high level of autonomy.**
 
@@ -48,7 +49,7 @@ Workflow:
 
 Features:
 
-1. Spec format optimized for quick human review.
+1. Concise, readable specs suitable for quick human review, including via voice assistants.
 2. Cross-agent uber-reviews — use diverse intelligence at a low token cost.
 3. Explicit subtasks result in reviewable commits with clear justifications.
 4. Scripted reviews: a scout script generates relevant questions for the reviewer to answer.
@@ -57,9 +58,11 @@ Features:
 7. Presents a readable report at the end.
 8. Uses a research file to save tokens on re-researching the codebase.
 9. Infused with pragmatic values of Linus Torvalds and Don Melton.
+10. Spec metadata and consistent chat events let monitoring tools follow tasks, stages, revision rounds and reviews across agents.
 
-Zoo 3.3 is the current version of Zoo 3, the lightweight successor to Zoo 2 targeting the smarter models of mid-2026. The big ideas are pretty much done; we're in polishing territory now. See my posts for way more context on the idea:
+Zoo 3.4 is the current version of Zoo 3, the lightweight successor to Zoo 2 targeting the smarter models of mid-2026. The big ideas are pretty much done; we're in polishing territory now. See my posts for way more context on the idea:
 
+* [Zoo 3.4 with code summaries](https://tarantsov.com/zoo-3-4/)
 * [Zoo 3.3 has small tweaks](https://tarantsov.com/zoo-3-3/)
 * [Zoo 3.2 asks better questions](https://tarantsov.com/zoo-3-2/)
 * [Zoo 3.1 fights scope creep and runs on Grok](https://tarantsov.com/zoo-3-1/)
@@ -130,12 +133,16 @@ When the task ends, you get a report with screenshots of UI changes. Start from 
 
 Zoo produces small, separate commits for subtasks when practical. You probably want to squash those before or after the review (depending on the size of the patchset) via Zoo Squash skill.
 
+In 3.4, I'm trying out **Code Summary**: instead of reading the code, you read LLM-generated descriptions that intelligently recognize patterns, fold related changes and omit boilerplate. It walks through the actual changes commit by commit, after the final rebase.
+
+SURPRISE marks items that might seem controversial or unexpected given the spec. Most of the things I revise are indeed marked as surprises. This is still pre-alpha; the goal is for _every_ post-implementation revision to be caused by something marked as a surprise. If/when I reach that, I will be able to only review the list of surprises.
+
 
 ### Asking for revisions
 
-To request a revision, run a Zoo skill again (`/zoo <revision request>`). It should recognize that it's a revision and continue working with the same spec and same task directory.
+To request a revision, just ask; agent should pick up Zoo Revision skill automatically (use `/zoo-revision` if it fails). Revision updates the same spec, and adds or adjusts subtasks.
 
-To add work while a task is running without derailing it, use Zoo Add (`/zoo-add <revision request>`). It records the ask and adds a ready subtask; it does not drop the current one unless the current work is actually harmful.
+If a subtask is running, the revision queues behind it and resumes execution (unless your request invalidates the current work).
 
 
 ## Advanced use
@@ -146,12 +153,14 @@ To add work while a task is running without derailing it, use Zoo Add (`/zoo-add
 * Zoo Final Uber-Review: runs `Zoo Ensure Safe Deploy` in uber-review agents (when running outside Codex, I recommend running this in Codex only; when running inside Codex, I recommend using Codex and one other agent); findings become suggestions for your approval.
 * Zoo Tweak Reviews: create or improve the project's scout script — add/migrate/tweak review questions, fix recurring false positives.
 * Zoo Undo Change: undo a completed change back to the exact prior code, preserving desirable remaining changes.
+* Zoo Revision: turn requested revisions into subtasks and keep them inside the workflow, automatically or when invoked manually.
+* Zoo Summarize Code: generate code summaries that fold related changes, omit boilerplate and mark surprises; runs automatically at closeout, or manually for a range you choose.
 * Zoo Docs: invoke manually to beat some new knowledge into the stupid machine's brain
 * Zoo Cleanup Finished Specs: archive completed `.spec/*.md` files and resolved proposal files without deleting them
 * Zoo Squash: squash and/or tidy up the unpushed commits.
 * Zoo Rebase: `git pull --rebase`, resolve conflicts, retest; runs automatically at the end of each task
 * Zoo Push: do Zoo Rebase then `git push` if safe
-* Zoo Upgrade Spec: bring old `.spec/*.md` files to the current task-file format without changing meaning
+* Zoo Upgrade Spec: bring old `.spec/*.md` files to the current task-file format without changing meaning; runs automatically when Zoo detects an older spec
 * Zoo Code Review: can invoke manually and specify the changes to review (“since v1.2.3”)
 * Zoo Spec Review: can invoke manually on a task file
 * Zoo Proposal: ask to write a proposal. “Later” on a Pending suggestion also writes one.
@@ -214,6 +223,8 @@ Uber-reviews are sticky: ask for it once, and the task is marked as `uberreviews
 
 Uber-reviews are _not_ run in a loop; there is only one round at each point. You can rerun `/zoo-spec-uberreview` or `/zoo-final-uberreview` manually if you want.
 
+Uber-reviews do not implicitly include the initiating agent. Agents no longer interpret “uber-review with codex” as running Codex and themselves. Review summaries report findings and failed reviewers explicitly.
+
 Zoo does not blindly accept all reviewer suggestions. Only uncontroversial small spec changes are autoaccepted; everything else is presented for you to decide.
 
 
@@ -224,6 +235,7 @@ You can ask Zoo to delay certain desirable suggestions by writing a proposal fil
 
 ## Changelog
 
+* Zoo 3.4 adds code summaries and surprise detection pre-alpha — descriptions that recognize patterns, fold related changes, omit boilerplate and mark controversial or unexpected items — plus shorter specs suitable for voice-based reviews, Zoo Revision to keep simple revisions running through Zoo, more support for automated monitoring, and uber-reviews that no longer implicitly include the initiating agent.
 * Zoo 3.3 tweaks the spec file format to enable automated monitoring and solve a few issues encountered in practice, and adds OpenCode uber-review command lines for GLM and DeepSeek in addition to Gemini.
 * Zoo 3.2 replaces tiered check agents with scout-driven scripted reviews, adds Zoo Tweak Reviews, Zoo Final Uberreview and Zoo Undo Change, supports personal overrides through `$ZOO_LOCAL_MD`, makes uber-reviews sticky, adds OpenCode/Gemini support and failed-agent retries, improves review recommendations and compatibility checks, centralizes review configuration, shares skills between Claude and Codex, and improves terse writing, spec walkthroughs, screenshots and metadata preservation.
 * Zoo 3.1 splits planning into high-level and low-level, adds cross-agent spec uberreviews, investigates bugs before planning a fix, queues mid-task discoveries/refactorings/bugs to put a stop to uncontrolled scope expansion, and adds Zoo Squash and Zoo Upgrade Spec skills

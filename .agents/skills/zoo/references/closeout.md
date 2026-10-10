@@ -20,6 +20,7 @@ Closeout:
 - Verify `Pending suggestions` is empty; every item moved to a subtask, Decisions, or a proposal
 - Reconsider and clean How it works, Scope, Report, High-level plan, Low-level plan, and each subtask's technical spec; Report MUST have screenshots as Markdown image refs visible in Markdown preview (images remain in uncommitted evidence dir)
 - Unless overridden, run zoo-rebase with parent `closeout` (chat: `Zoo closeout rebase start (.spec/example.md) r0`, then `Zoo closeout rebase finished (.spec/example.md) r0`; failures use `failed: <reason>` after path/round) and follow routing if not clean.
+- Run zoo-summarize-code for all task commits; fill `Code Summary` after `Report` from current post-rebase diffs.
 - Only after successful required closeout: set `status: done`, `stage: FIN`, `stage_complete: true`; emit `Zoo task finished (.spec/example.md) r0`. On failure keep FIN unfinished and status specific. Never commit task file.
 
 Display final report in chat:
@@ -27,5 +28,5 @@ Display final report in chat:
 - start with a clickable link to task file
 - clearly give task status, and display a list of subtasks with their statuses
 - link other relevant refs (files)
-- show How it works, Scope, Report, and High-level plan (at least surprises, risky changes, deployment)
+- show How it works, Scope, Report, Code Summary, and High-level plan (at least surprises, risky changes, deployment)
 - show screenshots inline

@@ -29,6 +29,12 @@ For humans and AIs *modifying* this skill. Not workflow instructions — the exe
 - Validate before restoring the stash so unrelated edits cannot cause failures attributed to incoming commits.
 - Restored changes intended for upstream may still make push unsafe, but they never block rebase.
 
+## Code Summary
+
+- (USER) Review Git diffs by voice, commit by commit: package layout, then production, tests, tooling, docs. Group repeated production changes; keep exact differences.
+- Keep summary directly after Report in the task file. Fill after all commits and closeout rebase so hashes and diffs match reviewed history. Reopened execution makes it stale until next closeout.
+- zoo-summarize-code is manual or Zoo-invoked only. Template owns placement; skill owns outline format. Existing spec upgrades inherit the section from the template.
+
 ## Log section
 
 - One line per event, everything that happens. Replaces old Zoo's Execution memory and all step reports: it is the memory a cold session resumes from, and the record for debugging the workflow itself.

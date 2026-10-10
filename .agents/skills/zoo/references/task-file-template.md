@@ -58,6 +58,11 @@ status: building high-level plan
 <write a brief guide to user-visible product-level changes, to post in the ticket targeting ticket opener; include exact screens and labels/names; add QA checklist and deployment/configuration/rollout checklist; do not go code-level, focus on user-visible and product-level changes, but do consider the entire rollout and configuration story>
 
 
+## Code Summary
+
+<fill via zoo-summarize-code skill when all commits done>
+
+
 ## Pending suggestions
 
 ### Scope expansion

@@ -31,6 +31,8 @@ If the user asks for uber-review, or the prompt says so: set spec frontmatter `u
 
 Keep `How it works`, `Scope`, `Report`, `High-level plan`, and `Low-level plan` current during planning and execution. After each subtask, update those sections plus that subtask's inline technical spec. Significant changes to the approved high-level plan or scope need user approval. During execution, record other significant changes under `Pending suggestions` → `Code changes` and wait for reapproval. User-requested revisions after spec approval: use zoo-revision.
 
+On closeout and after code changes: update Report, Code Summary (via zoo-summarize-code), ensure screenshots comprehensive and up to date.
+
 Every change belongs to a subtask. Add a subtask before making changes. Batch a bunch of tiny user-requested updates into one subtask. Otherwise keep subtasks focused.
 
 Split work into subtasks, after each: screenshots, scripted and visual reviews, commit. Put known refactorings and global/cross-cutting mechanisms in separate subtasks/commits. Keep feature subtasks narrow; never silently expand them.
